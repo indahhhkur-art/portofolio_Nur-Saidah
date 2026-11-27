@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/Portofolio-Nur_Saidah", "destination": "/index.html" }
+  ]
+}
