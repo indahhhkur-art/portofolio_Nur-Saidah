@@ -1,0 +1,2717 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nur Sa'idah - Finance & Accounting Specialist Portfolio</title>
+  <!-- Inter keeps navigation, labels, and body text visually consistent. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="portfolio.generated.css?v=20261127d">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .about-flip-stage {
+      perspective: 1000px;
+    }
+    #about-flip-button {
+      cursor: pointer;
+      border-radius: 28px;
+      transform-style: preserve-3d;
+      transition: transform 850ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    #about-flip-button:focus-visible,
+    #about-flip-pause:focus-visible {
+      outline: 2px solid #94504E;
+      outline-offset: 5px;
+    }
+    .about-flip-inner {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+    #about-flip-button[aria-pressed="true"] { transform: rotateY(180deg); }
+    .about-flip-face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      border: 1px solid #FFC7C5;
+      border-radius: 28px;
+      background: #FFE9E8;
+      box-shadow: 0 10px 30px -8px rgba(249, 139, 136, 0.16);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .about-flip-back {
+      transform: rotateY(180deg);
+      padding: 0;
+      overflow: hidden;
+    }
+    #about-flip-pause {
+      min-height: 44px;
+      padding: 8px 12px;
+      color: #94504E;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 12px;
+    }
+    #about-flip-pause:hover:not(:disabled) { background: #FFE3E2; }
+    #about-flip-pause:disabled { cursor: default; }
+    @media (prefers-reduced-motion: reduce) {
+      #about-flip-button { transition: none; }
+      #about-flip-button svg { transition: none; }
+    }
+
+    #balance-comparison { scroll-margin-top: 6rem; }
+    #balance-comparison .tool-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      padding: 6px;
+      background: #FFF0EF;
+      border: 1px solid #FFC7C5;
+      border-radius: 20px;
+    }
+    #balance-comparison .tool-tab {
+      min-height: 48px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      color: #514144;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    #balance-comparison .tool-tab:hover {
+      background: #FFE3E2;
+    }
+    #balance-comparison .tool-tab[aria-selected="true"] {
+      background: #94504E;
+      color: white;
+    }
+    #balance-comparison :is(button, input, select):focus-visible {
+      outline: 2px solid #94504E;
+      outline-offset: 3px;
+    }
+    #balance-comparison .tool-panel[hidden] { display: none; }
+    #balance-comparison #panel-invoice {
+      max-height: 72dvh;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+    }
+    @media screen and (min-width: 900px) and (min-height: 650px) {
+      #balance-comparison #panel-invoice { max-height: calc(100dvh - 220px); }
+    }
+    #balance-comparison label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    #balance-comparison .accounting-input {
+      width: 100%;
+      min-width: 0;
+      min-height: 48px;
+      padding: 12px 14px;
+      border: 1px solid #FFC7C5;
+      border-radius: 14px;
+      background: #FFFDFC;
+      color: #2A1C1D;
+      font: inherit;
+      font-size: 16px;
+    }
+    #balance-comparison [aria-invalid="true"] { border-color: #B42318; }
+    #balance-comparison .tool-button {
+      min-height: 44px;
+      padding: 10px 18px;
+      border: 1px solid #94504E;
+      border-radius: 999px;
+      color: #94504E;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    #balance-comparison .tool-button:hover:not(:disabled) { background: #FFE3E2; }
+    #balance-comparison .tool-button:active:not(:disabled) { transform: translateY(1px); }
+    #balance-comparison .tool-button:disabled { opacity: .45; cursor: not-allowed; }
+    #balance-comparison .tool-submit { background: #94504E; color: white; }
+    #balance-comparison .tool-submit:hover { background: #7D4140; }
+    #balance-comparison .tool-result {
+      padding: 20px;
+      border: 1px solid #FFC7C5;
+      border-radius: 16px;
+      background: #FFF8F7;
+      color: #514144;
+      font-size: 14px;
+      line-height: 1.65;
+      overflow-wrap: anywhere;
+    }
+    #balance-comparison .tool-result[data-state="error"] { border-color: #B42318; }
+    #balance-comparison .result-values {
+      display: grid;
+      gap: 12px;
+      margin: 12px 0;
+    }
+    #balance-comparison .result-values dd { font-size: 18px; font-weight: 700; color: #2A1C1D; }
+    #balance-comparison .tool-table-wrap {
+      max-width: 100%;
+      overflow-x: auto;
+      border: 1px solid #FFC7C5;
+      border-radius: 16px;
+    }
+    #balance-comparison .tool-table {
+      width: 100%;
+      min-width: 620px;
+      border-collapse: collapse;
+      font-size: 14px;
+      color: #514144;
+    }
+    #balance-comparison .tool-table caption { text-align: left; padding: 16px; font-weight: 700; }
+    #balance-comparison .tool-table :is(th, td) { padding: 12px 16px; border-bottom: 1px solid #FFE3E2; text-align: left; overflow-wrap: anywhere; }
+    #balance-comparison .tool-table thead { background: #FFF0EF; }
+    #balance-comparison .tool-table .numeric { text-align: right; white-space: nowrap; }
+    #balance-comparison .document-preview { padding: 24px; border: 1px solid #FFC7C5; border-radius: 16px; background: white; overflow-wrap: anywhere; }
+    @media screen {
+      #balance-comparison { scroll-margin-top: 5rem; }
+      #balance-comparison .tool-workspace { box-shadow: 0 4px 18px rgba(81, 65, 68, 0.045); }
+      #balance-comparison .tool-workspace > div { gap: 12px; display: flex; flex-direction: column; }
+      #balance-comparison .tool-workspace > div > * { margin-top: 0; }
+      #balance-comparison .tool-tabs { gap: 4px; padding: 4px; }
+      #balance-comparison .tool-tab { min-height: 44px; padding: 8px; }
+      #balance-comparison .tool-panel > p { margin-bottom: 12px; }
+      #balance-comparison .tool-editor > * + * { margin-top: 12px; }
+      #balance-comparison .tool-output { margin-top: 16px; }
+      #balance-comparison .tool-output > * + * { margin-top: 16px; }
+      #balance-comparison .accounting-input { min-height: 44px; padding: 9px 12px; }
+      #balance-comparison label { margin-bottom: 6px; }
+      #balance-comparison .tool-result { padding: 16px; }
+      #balance-comparison .document-preview { padding: 18px; }
+      #balance-comparison .tool-editor fieldset { padding: 12px; }
+      #balance-comparison .tool-editor fieldset > .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #balance-comparison #invoice-rows [data-description] { min-width: 0; }
+      #balance-comparison .tool-help[open] { max-height: 96px; overflow-y: auto; }
+    }
+    @media screen and (max-width: 639px) {
+      #balance-comparison > div { padding-left: 16px; padding-right: 16px; }
+      #balance-comparison .tool-workspace { padding: 16px; border-radius: 24px; }
+      #balance-comparison .tool-workspace .tool-tabs {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        scrollbar-width: thin;
+        scrollbar-color: #FFC7C5 transparent;
+        border-radius: 16px;
+      }
+      #balance-comparison .tool-tab { flex: 0 0 auto; min-width: 132px; white-space: nowrap; scroll-snap-align: center; }
+      #balance-comparison .tool-result { padding: 14px; }
+      #balance-comparison .document-preview { padding: 14px; }
+      #balance-comparison .tool-editor fieldset > .grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media screen and (min-width: 900px) and (min-height: 650px) {
+      #balance-comparison .tool-workspace .tool-tabs { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+      #balance-comparison .tool-workspace { padding: 20px; }
+      #balance-comparison .tool-workspace > div > :not(.tool-panel) { flex-shrink: 0; }
+      #balance-comparison .tool-panel { display: flex; flex-direction: column; }
+      #balance-comparison .tool-panel > p { font-size: 14px; line-height: 1.5; }
+      #balance-comparison .tool-panel > form {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 20px;
+        margin-top: 0;
+      }
+      #balance-comparison .tool-editor,
+      #balance-comparison .tool-output {
+        min-width: 0;
+        padding: 4px 8px 8px 4px;
+      }
+      #balance-comparison .tool-output {
+        margin-top: 0; border-left: 1px solid #FFE3E2; padding-left: 20px;
+      }
+      #balance-comparison .tool-editor > .max-w-lg { max-width: none; }
+      #balance-comparison .tool-editor > .grid { gap: 12px; }
+      #balance-comparison .tool-actions { padding-top: 4px; }
+      #balance-comparison #panel-asset .tool-editor > .grid { grid-template-columns: minmax(0, 1fr); }
+      #balance-comparison #invoice-form .tool-editor > .grid > .grid { grid-column: 1 / -1; }
+      #balance-comparison .tool-output .result-values { grid-template-columns: minmax(0, 1fr); }
+    }
+    #balance-comparison .report-header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; padding-bottom: 20px; border-bottom: 3px solid #94504E; margin-bottom: 20px; }
+    #balance-comparison .report-title { font-size: 24px; font-weight: 800; color: #2A1C1D; }
+    #balance-comparison .report-kicker { font-size: 11px; font-weight: 700; color: #94504E; margin-bottom: 4px; }
+    #balance-comparison .report-meta { font-size: 12px; line-height: 1.7; }
+    #balance-comparison .report-parties { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 20px 0; }
+    #balance-comparison .report-label { font-size: 11px; color: #695557; margin-bottom: 4px; }
+    #balance-comparison .report-summary { margin: 20px 0 20px auto; max-width: 360px; }
+    #balance-comparison .report-total-row { display: flex; justify-content: space-between; gap: 20px; padding: 6px 0; font-size: 13px; }
+    #balance-comparison .report-total-row dd { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+    #balance-comparison .report-total-row.is-total { border-top: 1px solid #94504E; border-bottom: 1px solid #94504E; margin: 6px 0; padding: 12px 0; font-weight: 700; }
+    #balance-comparison .report-notes { border-top: 1px solid #FFC7C5; padding-top: 16px; white-space: pre-wrap; font-size: 12px; }
+    #balance-comparison .report-footer { margin-top: 20px; font-size: 10px; line-height: 1.6; color: #695557; }
+    #invoice-preview { color: #202020; }
+    #invoice-preview .invoice-document-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); align-items: end; gap: 12px; padding-bottom: 18px; margin-bottom: 20px; border-bottom: 1px solid #444; }
+    #invoice-preview .invoice-wordmark { font-size: 15px; font-weight: 700; }
+    #invoice-preview .invoice-demo-label { display: block; margin-top: 6px; font-size: 9px; font-weight: 500; color: #555; }
+    #invoice-preview .invoice-document-title { text-align: center; }
+    #invoice-preview .invoice-document-title h3 { font-size: 28px; line-height: 1.2; font-weight: 800; text-decoration: underline; text-underline-offset: 5px; margin-bottom: 8px; }
+    #invoice-preview .invoice-document-title p { font-size: 12px; }
+    #invoice-preview .invoice-addressee { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; margin-bottom: 16px; font-size: 12px; line-height: 1.55; }
+    #invoice-preview .invoice-recipient { border: 1px solid #555; padding: 12px; }
+    #invoice-preview .invoice-small-label { font-size: 11px; font-weight: 600; margin-bottom: 8px; }
+    #invoice-preview .invoice-client-name { font-weight: 700; margin-bottom: 4px; }
+    #invoice-preview .invoice-multiline { white-space: pre-line; }
+    #invoice-preview .invoice-metadata > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 8px; padding: 2px 0; }
+    #invoice-preview .invoice-metadata dt::after { content: " :"; }
+    #invoice-preview .tool-table-wrap { border: 0; border-radius: 0; }
+    #invoice-preview .invoice-items-table { color: #202020; border: 1px solid #555; }
+    #invoice-preview .invoice-items-table caption { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); }
+    #invoice-preview .invoice-items-table :is(th, td) { border: 1px solid #555; padding: 9px 7px; }
+    #invoice-preview .invoice-items-table thead { background: #F4F4F4; }
+    #invoice-preview .invoice-table-spacer td { height: 64px; border-top: 0; border-bottom: 0; }
+    #invoice-preview .invoice-settlement { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); margin-top: 10px; border: 1px solid #555; break-inside: avoid; }
+    #invoice-preview .invoice-terbilang { padding: 12px; border-right: 1px solid #555; font-size: 12px; line-height: 1.65; }
+    #invoice-preview .report-summary { margin: 0; padding: 8px 12px; max-width: none; }
+    #invoice-preview .report-total-row { font-size: 12px; gap: 12px; padding: 4px 0; }
+    #invoice-preview .report-total-row dt { min-width: 0; }
+    #invoice-preview .report-total-row dd { min-width: 0; flex-shrink: 0; max-width: 55%; }
+    #invoice-preview .report-total-row.is-total { border-color: #555; padding: 7px 0; margin: 4px 0; }
+    #invoice-preview .report-notes { border: 0; margin-top: 18px; padding-top: 0; color: #202020; font-size: 11px; }
+    #invoice-preview .invoice-closing { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; margin-top: 24px; font-size: 11px; line-height: 1.6; break-inside: avoid; }
+    #invoice-preview .invoice-signature { max-width: 220px; width: 100%; justify-self: end; text-align: center; }
+    #invoice-preview .invoice-signature-name { margin-top: 52px; padding-top: 5px; border-top: 1px solid #555; font-weight: 700; }
+    #invoice-preview .report-footer { color: #555; font-size: 9px; margin-top: 16px; }
+    @page accounting-report { size: A4; margin: 16mm; }
+    @media print {
+      body.accounting-print-mode { page: accounting-report; margin: 0; background: white; color: #211A1A; font-family: Arial, sans-serif; font-size: 10pt; }
+      body.accounting-print-mode #balance-comparison * { animation: none !important; transition: none !important; }
+      body.accounting-print-mode > :not(#balance-comparison) { display: none !important; }
+      body.accounting-print-mode #balance-comparison,
+      body.accounting-print-mode #balance-comparison > div { max-width: none; padding: 0; margin: 0; }
+      body.accounting-print-mode #balance-comparison > div > div {
+        padding: 0; border: 0; box-shadow: none; opacity: 1; transform: none; height: auto;
+      }
+      body.accounting-print-mode #balance-comparison > div > div > div > :not(.print-panel),
+      body.accounting-print-mode .print-panel > :not(form),
+      body.accounting-print-mode .print-panel form > :not(.tool-output),
+      body.accounting-print-mode .tool-output > :not(.print-document) { display: none !important; }
+      body.accounting-print-mode #balance-comparison .tool-output,
+      body.accounting-print-mode #balance-comparison #panel-invoice,
+      body.accounting-print-mode #balance-comparison .print-document { padding: 0; margin: 0; border: 0; height: auto; max-height: none; overflow: visible; box-shadow: none; }
+      body.accounting-print-mode #balance-comparison .tool-table-wrap { overflow: visible; border: 0; border-radius: 0; }
+      body.accounting-print-mode #balance-comparison .tool-table { min-width: 0; table-layout: fixed; font-size: 9pt; line-height: 1.5; }
+      body.accounting-print-mode #balance-comparison .tool-table :is(th, td) { padding: 9px 6px; color: #211A1A; vertical-align: top; border-bottom: 1px solid #DDD; }
+      body.accounting-print-mode #balance-comparison .tool-table .numeric { white-space: normal; font-variant-numeric: tabular-nums; }
+      body.accounting-print-mode #invoice-preview .tool-table :first-child:is(th, td) { width: 5%; }
+      body.accounting-print-mode #invoice-preview .tool-table :nth-child(2):is(th, td) { width: 33%; }
+      body.accounting-print-mode #invoice-preview .tool-table :nth-child(3):is(th, td) { width: 10%; }
+      body.accounting-print-mode #invoice-preview .tool-table :nth-child(4):is(th, td) { width: 9%; }
+      body.accounting-print-mode #invoice-preview .tool-table :nth-child(5):is(th, td) { width: 21%; }
+      body.accounting-print-mode #invoice-preview .tool-table :nth-child(6):is(th, td) { width: 22%; }
+      body.accounting-print-mode #invoice-preview .invoice-items-table :is(th, td) { border: 1px solid #555; padding: 7px 5px; font-size: 8.5pt; }
+      body.accounting-print-mode #invoice-preview .invoice-document-title h3 { font-size: 24pt; }
+      body.accounting-print-mode #invoice-preview .invoice-addressee,
+      body.accounting-print-mode #invoice-preview .invoice-settlement { font-size: 9pt; }
+      body.accounting-print-mode #ledger-preview .tool-table :nth-child(2):is(th, td) { width: 24%; }
+      body.accounting-print-mode #balance-comparison .tool-table caption { padding: 0 0 10px; }
+      body.accounting-print-mode #balance-comparison .tool-table thead { display: table-header-group; background: #F5F0EF; }
+      body.accounting-print-mode #balance-comparison tr,
+      body.accounting-print-mode #balance-comparison .report-summary,
+      body.accounting-print-mode #balance-comparison .report-header { break-inside: avoid; }
+      body.accounting-print-mode #balance-comparison .report-title { font-size: 24pt; }
+      body.accounting-print-mode #balance-comparison .report-parties { font-size: 10pt; }
+      body.accounting-print-mode #balance-comparison .report-notes { font-size: 9pt; }
+    }
+    @media (min-width: 640px) {
+      #balance-comparison .tool-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      #balance-comparison .result-values { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1280px) {
+      #balance-comparison .tool-tabs { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    }
+
+    #experience .exp-tab {
+      min-height: 44px;
+      font-size: 13px;
+    }
+    #experience .exp-item ul {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    @media (min-width: 768px) {
+      #experience .exp-item h3 {
+        min-height: 3.5rem;
+      }
+    }
+
+    @media (max-width: 1279px) {
+      #main-header {
+        background: rgba(255, 253, 252, 0.95);
+      }
+      #mobile-menu {
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        max-height: calc(100dvh - 5rem);
+        overflow-y: auto;
+      }
+      @supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
+        #main-header {
+          background: rgba(255, 253, 252, 0.72);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+        }
+      }
+    }
+
+    /* Slightly enlarge only the smallest labels and supporting text. */
+    body .text-\[9px\] {
+      font-size: 11px;
+    }
+    body .text-\[10px\] {
+      font-size: 12px;
+    }
+    body .text-\[11px\] {
+      font-size: 12px;
+    }
+
+    /* Dotted background pattern */
+    .bg-dots {
+      background-image: radial-gradient(#F98B88 1.3px, transparent 1.3px);
+      background-size: 20px 20px;
+      opacity: 0.32;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #F98B88;
+      border-radius: 999px;
+    }
+    /* Smooth glass effect */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.90);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    
+    /* ================= SMOOTH & REFINED ANIMATION SYSTEM ================= */
+    /* GPU Accelerated Smooth Float */
+    @keyframes float-smooth {
+      0%, 100% {
+        transform: translate3d(0, 0, 0);
+      }
+      50% {
+        transform: translate3d(0, -6px, 0);
+      }
+    }
+    @keyframes float-subtle {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+      50% {
+        transform: translate3d(0, -5px, 0) rotate(0.8deg);
+      }
+    }
+    .anim-float {
+      animation: none;
+    }
+    .anim-float-delayed {
+      animation: none;
+    }
+
+    /* Scroll Reveal System */
+    .reveal {
+      opacity: 0;
+      transform: translate3d(0, 12px, 0);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+    /* Stagger Delays for Grid Children */
+    .delay-1 { transition-delay: 0.06s; }
+    .delay-2 { transition-delay: 0.12s; }
+    .delay-3 { transition-delay: 0.18s; }
+    .delay-4 { transition-delay: 0.24s; }
+    .delay-5 { transition-delay: 0.30s; }
+    .delay-6 { transition-delay: 0.36s; }
+
+    /* Premium Smooth Hover for Cards & Buttons */
+    .smooth-card {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s ease,
+                  background-color 0.3s ease;
+      will-change: transform, box-shadow;
+    }
+    .smooth-card:hover {
+      transform: translate3d(0, -2px, 0);
+    }
+    #skills p.text-\[11px\],
+    #process p.text-\[11px\],
+    #certifications p.text-\[11px\] {
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto !important; }
+      .reveal, .reveal.active { opacity: 1; transform: none; transition: none; }
+      .smooth-card { transition: none; }
+      .smooth-card:hover { transform: none; }
+    }
+
+    /* Active nav indicator with smooth slide */
+    .nav-link {
+      transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-link.active {
+      color: #AE615F;
+      font-weight: 700;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      width: 0;
+      height: 2.5px;
+      background: #F98B88;
+      border-radius: 999px;
+      transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-link.active::after {
+      width: 100%;
+      left: 0;
+    }
+
+    /* Modal Smooth Transition */
+    .modal-dialog {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    #home {
+      padding-top: 48px;
+      padding-bottom: 32px;
+      background:
+        radial-gradient(ellipse 60% 60% at 68% 45%, rgba(251, 212, 214, 0.95) 0%, rgba(254, 234, 236, 0.55) 42%, rgba(254, 234, 236, 0) 72%),
+        linear-gradient(180deg, #FEEAEC 0%, #FFF7F7 52%, #FFFFFF 100%);
+    }
+    @media screen and (min-width: 768px) {
+      #home .max-w-7xl > div:last-child { position: relative; top: -20px; left: -16px; }
+    }
+    #about { padding-top: 32px; }
+    @media screen and (max-width: 767px) {
+      #home {
+        padding-top: 24px;
+        padding-bottom: 20px;
+        background:
+          radial-gradient(ellipse 80% 45% at 50% 28%, rgba(251, 212, 214, 0.95) 0%, rgba(254, 234, 236, 0.55) 45%, rgba(254, 234, 236, 0) 75%),
+          linear-gradient(180deg, #FEEAEC 0%, #FFF7F7 52%, #FFFFFF 100%);
+      }
+      #home .max-w-7xl > div:first-child { order: 2; }
+      #home .max-w-7xl > div:last-child { order: 1; }
+      #about { padding-top: 20px; }
+    }
+  </style>
+</head>
+<body class="bg-brand-bg text-brand-dark font-sans antialiased overflow-x-hidden selection:bg-brand-primary selection:text-white">
+
+  <!-- ================= TOP NAVIGATION ================= -->
+  <header id="main-header" class="sticky top-0 z-50 bg-white/92 backdrop-blur-md border-b border-brand-border/40 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
+      <!-- Logo -->
+      <a href="#" class="flex flex-col shrink-0 group">
+        <span class="text-xl font-bold tracking-tight text-brand-dark flex items-center gap-1.5 group-hover:text-brand-primary transition-colors">
+          Nur Sa'idah <span class="text-brand-primary font-handwriting text-2xl font-bold group-hover:scale-125 transition-transform">♡</span>
+        </span>
+        <span class="text-[9px] uppercase font-extrabold tracking-widest text-brand-primary-dark">FINANCE & ACCOUNTING SPECIALIST</span>
+      </a>
+
+      <!-- Desktop Nav Links with ScrollSpy Support -->
+      <nav class="hidden xl:flex flex-1 items-center justify-center gap-4 whitespace-nowrap text-sm font-semibold text-brand-gray">
+        <a href="#home" class="nav-link relative py-1 active">Beranda</a>
+        <a href="#about" class="nav-link relative py-1 hover:text-brand-primary">Tentang</a>
+        <a href="#skills" class="nav-link relative py-1 hover:text-brand-primary">Keahlian & Tools</a>
+        <a href="#experience" class="nav-link relative py-1 hover:text-brand-primary">Pengalaman</a>
+        <a href="#balance-comparison" class="nav-link relative py-1 hover:text-brand-primary">Accounting Mini Tools</a>
+      </nav>
+
+      <!-- CTA Button & Actions -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap">
+        <button onclick="openCvModal()" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-brand-dark border border-[#FFC7C5] font-semibold text-sm hover:border-brand-primary hover:text-brand-primary hover:bg-[#FFE3E2]/30 active:scale-95 transition-all shadow-xs">
+          <i data-lucide="eye" class="w-4 h-4 text-brand-primary"></i>
+          <span>Lihat CV</span>
+        </button>
+        <a href="https://wa.me/6289517362741" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#F98B88] to-[#AE615F] text-white text-sm font-semibold shadow-soft hover:shadow-glow hover:scale-105 active:scale-95 transition-all">
+          <span>Hubungi Saya</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="xl:hidden p-2.5 rounded-2xl bg-[#FFE3E2]/60 text-brand-dark hover:text-brand-primary transition-colors" aria-label="Toggle Menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden xl:hidden px-6 pt-3 pb-6 bg-white/95 backdrop-blur-lg border-b border-brand-border space-y-3">
+      <a href="#home" class="block py-2 text-sm font-semibold text-brand-primary">Beranda</a>
+      <a href="#about" class="block py-2 text-sm font-semibold text-brand-gray hover:text-brand-primary">Tentang</a>
+      <a href="#skills" class="block py-2 text-sm font-semibold text-brand-gray hover:text-brand-primary">Keahlian & Tools</a>
+      <a href="#experience" class="block py-2 text-sm font-semibold text-brand-gray hover:text-brand-primary">Pengalaman</a>
+      <a href="#balance-comparison" class="block py-2 text-sm font-semibold text-brand-gray hover:text-brand-primary">Accounting Mini Tools</a>
+      <div class="pt-2 flex flex-col gap-2">
+        <button onclick="openCvModal()" class="w-full py-2.5 rounded-full bg-[#FFE3E2] text-brand-primary-dark text-sm font-semibold">
+          Lihat Ringkasan CV 📄
+        </button>
+        <a href="https://wa.me/6289517362741" target="_blank" class="w-full inline-flex justify-center items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#F98B88] to-[#AE615F] text-white text-sm font-semibold shadow-soft">
+          Hubungi via WhatsApp <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section id="home" class="relative pt-10 pb-16 md:py-20 overflow-hidden">
+    
+    <!-- Left Organic Flowing Wave Shape -->
+    <svg class="absolute top-0 left-0 h-full w-auto max-w-[320px] pointer-events-none -z-10 opacity-75" viewBox="0 0 300 600" fill="none" preserveAspectRatio="none">
+      <path d="M0 0C80 30 160 140 150 270C140 400 60 510 0 600V0Z" fill="#FFE3E2"/>
+    </svg>
+
+    <!-- Bottom Left Coral Dots Cluster -->
+    <div class="absolute bottom-10 left-8 hidden sm:grid grid-cols-4 gap-2.5 opacity-40 pointer-events-none -z-10">
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+      <div class="w-1.5 h-1.5 rounded-full bg-[#F98B88]"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-center">
+      <!-- Left Column: Copywriting -->
+      <div class="md:col-span-6 space-y-6 z-10 reveal active">
+        <h1 class="text-4xl sm:text-5xl lg:text-[3.6rem] font-extrabold tracking-tight leading-tight text-brand-dark">
+          Nur <span class="bg-gradient-to-r from-[#F98B88] to-[#AE615F] bg-clip-text text-transparent">Sa'idah</span>
+        </h1>
+
+        <!-- Subtitle with hand-drawn wavy underline & heart -->
+        <div class="relative inline-block">
+          <div class="flex items-center gap-2">
+            <span class="text-lg sm:text-2xl font-bold text-brand-primary-dark tracking-tight">Finance & Accounting Specialist</span>
+            <span class="font-handwriting text-3xl text-brand-primary font-bold">♡</span>
+          </div>
+          <!-- Cute subtle curved stroke underline -->
+          <svg class="absolute -bottom-2 left-0 w-48 h-2.5 text-brand-primary/85" viewBox="0 0 160 8" fill="none">
+            <path d="M2 5C45 2 110 2 158 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <p class="text-base sm:text-lg text-brand-gray leading-relaxed max-w-lg pt-1">
+          Lulusan <strong>Politeknik Negeri Jakarta (IPK 3.45)</strong> yang berdedikasi mengelola pembukuan, rekonsiliasi kas, faktur, hingga kepatuhan perpajakan (PPh 21 & Brevet A/B) secara presisi, akuntabel, dan transparan.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="pt-2 flex flex-wrap items-center gap-4">
+          <a href="#experience" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#F98B88] to-[#AE615F] text-white font-semibold text-sm shadow-[0_8px_20px_-4px_rgba(249,139,136,0.45)] hover:shadow-glow hover:scale-105 active:scale-95 transition-all">
+            <span>Lihat Pengalaman</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          <button onclick="openCvModal()" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-brand-dark border border-[#FFC7C5] font-semibold text-sm hover:border-brand-primary hover:text-brand-primary hover:bg-[#FFE3E2]/40 active:scale-95 transition-all shadow-xs">
+            <span>Unduh Resume / CV</span>
+            <i data-lucide="download" class="w-4 h-4 text-brand-primary"></i>
+          </button>
+        </div>
+
+        <!-- Social & Quick Contact Badges -->
+        <div class="pt-6 flex items-center gap-3">
+          <span class="text-xs font-semibold text-brand-gray">Kontak Cepat:</span>
+          <div class="flex items-center gap-2">
+            <button onclick="copyEmail()" class="w-9 h-9 rounded-full bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center font-bold text-xs hover:bg-brand-primary hover:text-white active:scale-90 transition-all shadow-xs" title="Salin Email">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+            <a href="mailto:nur.saidahh19@gmail.com" class="w-9 h-9 rounded-full bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center font-bold text-xs hover:bg-brand-primary hover:text-white active:scale-90 transition-all shadow-xs" title="Kirim Email">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+            </a>
+            <a href="https://wa.me/6289517362741" target="_blank" class="w-9 h-9 rounded-full bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center font-bold text-xs hover:bg-brand-primary hover:text-white active:scale-90 transition-all shadow-xs" title="Chat WhatsApp">
+              <i data-lucide="phone" class="w-4 h-4"></i>
+            </a>
+            <a href="https://linkedin.com" target="_blank" class="w-9 h-9 rounded-full bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center font-bold text-xs hover:bg-brand-primary hover:text-white active:scale-90 transition-all shadow-xs" title="LinkedIn">
+              in
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: High-End Interactive Financial Showcase Visual -->
+      <div class="md:col-span-6 flex justify-center items-center relative reveal delay-2 active">
+        <div class="relative w-full max-w-lg">
+          
+          <!-- Main Hero Photo Frame -->
+          <div class="rounded-[2.5rem] relative overflow-hidden aspect-[4/3] bg-[#FFE3E2]">
+            <img src="hero-photo.webp" alt="Foto Nur Sa'idah dengan latar pink" class="w-full h-full object-cover" width="1200" height="909">
+          </div>
+
+          <!-- Floating Speech Bubble Left with Silky Smooth Float -->
+          <div class="absolute -top-4 -left-6 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-soft border border-[#FFC7C5] max-w-[200px] anim-float hidden sm:block">
+            <p class="text-[11px] font-bold text-brand-dark leading-snug">
+              Menyulap data transaksi jadi laporan rapi & valid
+            </p>
+            <span class="font-handwriting text-sm text-brand-primary font-bold">♡</span>
+          </div>
+
+          <!-- Floating Badge Right: GPA with Silky Smooth Float -->
+          <div class="absolute -bottom-5 -right-5 bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl shadow-soft border border-[#FFC7C5] flex flex-col items-center text-center anim-float-delayed">
+            <div class="w-7 h-7 rounded-full bg-amber-50 text-amber-500 flex items-center justify-center mb-1">
+              <i data-lucide="award" class="w-4 h-4 fill-amber-400 text-amber-400"></i>
+            </div>
+            <span class="text-base font-extrabold text-brand-dark leading-none">IPK 3.45</span>
+            <span class="text-[10px] font-semibold text-brand-gray tracking-tight">Politeknik Negeri Jakarta</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ME SECTION ================= -->
+  <section id="about" class="pt-16 pb-8 md:pt-24 md:pb-10 bg-white/70 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+        <!-- Foto / ilustrasi yang bisa dibalik -->
+        <div class="md:col-span-4 flex flex-col items-center gap-2 reveal delay-1">
+          <div class="about-flip-stage w-60 h-60">
+          <button id="about-flip-button" type="button" class="w-full h-full relative group" aria-label="Balik kartu untuk melihat ilustrasi tanaman" aria-pressed="false">
+            <span class="about-flip-inner">
+            <span id="about-flip-front" class="about-flip-face" aria-hidden="false" style="padding:0;overflow:hidden">
+              <img src="about-portrait.webp" alt="Potret Nur Sa'idah dengan latar bunga merah muda" class="w-full h-full" width="640" height="640" loading="lazy">
+            </span>
+            <span id="about-flip-back" class="about-flip-face about-flip-back" aria-hidden="true" style="padding:24px;overflow:visible;background:#FFE9E8;gap:12px">
+            <!-- Cute SVG Plant Pot Doodle -->
+            <svg class="w-32 h-32 group-hover:scale-110 transition-transform duration-500 ease-out" viewBox="0 0 120 120" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path d="M60 55C55 35 38 32 36 42C34 50 48 55 60 55Z" fill="#F98B88" fill-opacity="0.9"/>
+              <path d="M60 55C65 30 85 28 86 38C87 48 72 55 60 55Z" fill="#FFC7C5" fill-opacity="0.95"/>
+              <path d="M60 55C60 40 68 38 68 44C68 48 64 53 60 55Z" fill="#AE615F"/>
+              <path d="M35 55H85L80 92C79.5 96 75.5 99 71.5 99H48.5C44.5 99 40.5 96 40 92L35 55Z" fill="#FFE3E2" stroke="#AE615F" stroke-width="2.5" stroke-linejoin="round"/>
+              <rect x="31" y="52" width="58" height="9" rx="4.5" fill="#FFC7C5" stroke="#AE615F" stroke-width="2"/>
+              <circle cx="51" cy="73" r="2.5" fill="#2C1E1F"/>
+              <circle cx="69" cy="73" r="2.5" fill="#2C1E1F"/>
+              <path d="M57 80C58.5 82 61.5 82 63 80" stroke="#2C1E1F" stroke-width="2.5" stroke-linecap="round"/>
+              <ellipse cx="46" cy="77" rx="3" ry="1.8" fill="#F98B88"/>
+              <ellipse cx="74" cy="77" rx="3" ry="1.8" fill="#F98B88"/>
+            </svg>
+            <span class="block w-20 h-2 bg-[#F98B88]/20 rounded-full blur-xs mt-2"></span>
+            <span class="text-[11px] font-extrabold text-brand-primary-dark mt-2 tracking-wide">Teliti • Rapi • Akuntabel</span>
+            </span>
+            </span>
+          </button>
+          </div>
+          <button id="about-flip-pause" type="button" class="sr-only focus:not-sr-only" aria-pressed="false">Jeda flip otomatis · 30 detik</button>
+        </div>
+
+        <!-- Bio & Badges -->
+        <div class="md:col-span-8 space-y-6 reveal delay-2">
+          <div class="flex items-center gap-2">
+            <h2 class="text-3xl font-extrabold text-brand-dark">Tentang <span class="text-brand-primary">Saya</span></h2>
+            <span class="font-handwriting text-3xl text-brand-primary font-bold">♡</span>
+          </div>
+
+          <div class="space-y-4 text-brand-gray leading-relaxed text-base sm:text-lg text-left">
+            <p>
+              Saya adalah profesional di bidang akuntansi, manajemen keuangan, dan administrasi perkantoran lulusan <strong>Politeknik Negeri Jakarta</strong> (Jurusan Akuntansi, Program Studi Keuangan dan Perbankan).
+            </p>
+            <p>
+              Memiliki rekam jejak praktis dalam menangani rekonsiliasi bank secara berkala, pencatatan transaksi masuk dan keluar, penerbitan invoice resmi, hingga pengoperasian <strong>DJP Online</strong> dan perhitungan <strong>PPh Pasal 21 Final</strong> di instansi pemerintah dan perusahaan swasta.
+            </p>
+          </div>
+
+          <!-- 4 Badges CV -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+            <!-- Badge 1: Domisili -->
+            <div class="flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-white border border-[#FFC7C5] shadow-xs smooth-card hover:border-brand-primary hover:shadow-soft">
+              <span class="p-2 rounded-xl bg-[#FFE3E2] text-brand-primary-dark">
+                <i data-lucide="map-pin" class="w-4 h-4"></i>
+              </span>
+              <div>
+                <span class="text-[11px] block font-medium text-brand-gray">Domisili</span>
+                <span class="text-xs font-bold text-brand-dark">Cipayung, Jakarta Timur</span>
+              </div>
+            </div>
+
+            <!-- Badge 2: Pendidikan -->
+            <div class="flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-white border border-[#FFC7C5] shadow-xs smooth-card hover:border-brand-primary hover:shadow-soft">
+              <span class="p-2 rounded-xl bg-[#FFE3E2] text-brand-primary-dark">
+                <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+              </span>
+              <div>
+                <span class="text-[11px] block font-medium text-brand-gray">Pendidikan Formal</span>
+                <span class="text-xs font-bold text-brand-dark">D3 Keuangan & Perbankan, PNJ</span>
+              </div>
+            </div>
+
+            <!-- Badge 3: Sertifikasi Utama -->
+            <div class="flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-white border border-[#FFC7C5] shadow-xs smooth-card hover:border-brand-primary hover:shadow-soft">
+              <span class="p-2 rounded-xl bg-[#FFE3E2] text-brand-primary">
+                <i data-lucide="file-check-2" class="w-4 h-4"></i>
+              </span>
+              <div>
+                <span class="text-[11px] block font-medium text-brand-gray">Sertifikasi Keahlian</span>
+                <span class="text-xs font-bold text-brand-dark">Brevet Pajak A&B & ACCURATE (CAP)</span>
+              </div>
+            </div>
+
+            <!-- Badge 4: Pengalaman Backoffice & Finance -->
+            <div class="flex items-center gap-3 px-4 py-3.5 rounded-2xl bg-white border border-[#FFC7C5] shadow-xs smooth-card hover:border-brand-primary hover:shadow-soft">
+              <span class="p-2 rounded-xl bg-[#FFE3E2] text-brand-primary-dark">
+                <i data-lucide="briefcase" class="w-4 h-4"></i>
+              </span>
+              <div>
+                <span class="text-[11px] block font-medium text-brand-gray">Pengalaman Kerja</span>
+                <span class="text-xs font-bold text-brand-dark">Perbankan, Korporasi & Kementerian</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- ================= METRICS & STATS BAR ================= -->
+      <div class="mt-10 md:mt-12 glass-card border border-[#FFC7C5] rounded-3xl p-6 shadow-soft grid grid-cols-2 md:grid-cols-4 gap-6 text-center reveal">
+        <div class="space-y-1">
+          <span class="text-3xl font-extrabold text-brand-dark">3.45<span class="text-base font-normal text-brand-gray">/4.0</span></span>
+          <p class="text-xs font-semibold text-brand-primary-dark">IPK D3 Keuangan & Perbankan</p>
+        </div>
+        <div class="space-y-1 border-l border-[#FFC7C5]/40">
+          <span class="text-3xl font-extrabold text-brand-dark">100%</span>
+          <p class="text-xs font-semibold text-brand-primary-dark">Akurasi Rekonsiliasi Bank</p>
+        </div>
+        <div class="space-y-1 border-t md:border-t-0 md:border-l border-[#FFC7C5]/40 pt-4 md:pt-0">
+          <span class="text-3xl font-extrabold text-brand-dark">5+</span>
+          <p class="text-xs font-semibold text-brand-primary-dark">Sertifikasi & Workshop Resmi</p>
+        </div>
+        <div class="space-y-1 border-t md:border-t-0 md:border-l border-[#FFC7C5]/40 pt-4 md:pt-0">
+          <span class="text-3xl font-extrabold text-brand-dark">3</span>
+          <p class="text-xs font-semibold text-brand-primary-dark">Sektor Kerja (Korporat, Bank, Pemda)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SKILLS & SOFTWARE STACK (DEDICATED SECTION) ================= -->
+  <section id="skills" class="pt-8 md:pt-10 pb-20 relative bg-gradient-to-b from-white/40 to-[#FFE3E2]/30">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-14 space-y-2 reveal">
+        <div class="inline-flex items-center justify-center gap-2">
+          <h2 class="text-3xl font-extrabold text-brand-dark">Keahlian & <span class="text-brand-primary">Tools Teknis</span></h2>
+          <span class="font-handwriting text-3xl text-brand-primary font-bold">♡</span>
+        </div>
+        <p class="text-sm sm:text-base text-brand-gray">
+          Tingkat kemahiran pada software akuntansi, administrasi kantor, dan kepatuhan perpajakan.
+        </p>
+      </div>
+
+      <!-- Skills Progress Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Skill 1 -->
+        <div class="bg-white p-6 rounded-3xl border border-[#FFC7C5] shadow-soft smooth-card space-y-4 reveal delay-1">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center">
+                <i data-lucide="cpu" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-brand-dark">ACCURATE System</h4>
+                <span class="text-[11px] text-brand-primary-dark font-semibold">Certified CAP CPSSOFT</span>
+              </div>
+            </div>
+            <span class="text-sm font-extrabold text-brand-dark">95%</span>
+          </div>
+          <div class="w-full bg-[#FFE3E2]/60 h-2 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-[#F98B88] to-[#AE615F] h-full w-[95%] rounded-full"></div>
+          </div>
+          <p class="text-[11px] text-brand-gray">Pencatatan faktur, buku besar, jurnal penyesuaian, dan laporan keuangan komprehensif.</p>
+        </div>
+
+        <!-- Skill 2 -->
+        <div class="bg-white p-6 rounded-3xl border border-[#FFC7C5] shadow-soft smooth-card space-y-4 reveal delay-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center">
+                <i data-lucide="file-check" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-brand-dark">DJP Online & Pajak</h4>
+                <span class="text-[11px] text-brand-primary-dark font-semibold">PPh 21 & Brevet A/B</span>
+              </div>
+            </div>
+            <span class="text-sm font-extrabold text-brand-dark">90%</span>
+          </div>
+          <div class="w-full bg-[#FFE3E2]/60 h-2 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-[#F98B88] to-[#AE615F] h-full w-[90%] rounded-full"></div>
+          </div>
+          <p class="text-[11px] text-brand-gray">Pembuatan bukti potong PPh Pasal 21 Final, e-Bupot, e-Faktur, dan pelaporan SPT Masa.</p>
+        </div>
+
+        <!-- Skill 3 -->
+        <div class="bg-white p-6 rounded-3xl border border-[#FFC7C5] shadow-soft smooth-card space-y-4 reveal delay-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center">
+                <i data-lucide="sheet" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-brand-dark">Microsoft Excel</h4>
+                <span class="text-[11px] text-brand-primary-dark font-semibold">Formula Lanjutan</span>
+              </div>
+            </div>
+            <span class="text-sm font-extrabold text-brand-dark">92%</span>
+          </div>
+          <div class="w-full bg-[#FFE3E2]/60 h-2 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-[#F98B88] to-[#AE615F] h-full w-[92%] rounded-full"></div>
+          </div>
+          <p class="text-[11px] text-brand-gray">VLOOKUP, XLOOKUP, PivotTable, IF bertingkat, rekonsiliasi data, dan visualisasi grafik.</p>
+        </div>
+
+        <!-- Skill 4 -->
+        <div class="bg-white p-6 rounded-3xl border border-[#FFC7C5] shadow-soft smooth-card space-y-4 reveal delay-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center">
+                <i data-lucide="scale" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-brand-dark">Rekonsiliasi Bank</h4>
+                <span class="text-[11px] text-brand-primary-dark font-semibold">Kas & Rekening Koran</span>
+              </div>
+            </div>
+            <span class="text-sm font-extrabold text-brand-dark">95%</span>
+          </div>
+          <div class="w-full bg-[#FFE3E2]/60 h-2 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-[#F98B88] to-[#AE615F] h-full w-[95%] rounded-full"></div>
+          </div>
+          <p class="text-[11px] text-brand-gray">Pencocokan mutasi kas masuk/keluar, identifikasi transaksi tertunda (*outstanding*), dan laporan berkala.</p>
+        </div>
+
+        <!-- Skill 5 -->
+        <div class="bg-white p-6 rounded-3xl border border-[#FFC7C5] shadow-soft smooth-card space-y-4 reveal delay-5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center">
+                <i data-lucide="archive" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-brand-dark">ATLAS & Audit</h4>
+                <span class="text-[11px] text-brand-primary-dark font-semibold">Standar Kemenkeu</span>
+              </div>
+            </div>
+            <span class="text-sm font-extrabold text-brand-dark">85%</span>
+          </div>
+          <div class="w-full bg-[#FFE3E2]/60 h-2 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-[#F98B88] to-[#AE615F] h-full w-[85%] rounded-full"></div>
+          </div>
+          <p class="text-[11px] text-brand-gray">Audit Tool and Linked Archive System untuk digitalisasi kertas kerja audit terstruktur.</p>
+        </div>
+
+        <!-- Skill 6 -->
+        <div class="bg-white p-6 rounded-3xl border border-[#FFC7C5] shadow-soft smooth-card space-y-4 reveal delay-6">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center">
+                <i data-lucide="languages" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-brand-dark">Bahasa Inggris (TOEFL)</h4>
+                <span class="text-[11px] text-brand-primary-dark font-semibold">LBPP LIA Pramuka</span>
+              </div>
+            </div>
+            <span class="text-sm font-extrabold text-brand-dark">85%</span>
+          </div>
+          <div class="w-full bg-[#FFE3E2]/60 h-2 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-[#F98B88] to-[#AE615F] h-full w-[85%] rounded-full"></div>
+          </div>
+          <p class="text-[11px] text-brand-gray">Komunikasi bisnis tertulis, pemahaman dokumen keuangan internasional, dan korespondensi formal.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SELECTED WORK (PENGALAMAN KERJA DENGAN FILTER TABS) ================= -->
+  <section id="experience" class="py-20 bg-white/50 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Section Title & Filter Tabs -->
+      <div class="flex flex-col xl:flex-row xl:items-end justify-between mb-8 gap-5 reveal">
+        <div>
+          <div class="inline-flex items-center gap-2">
+            <h2 class="text-3xl font-extrabold text-brand-dark">Pengalaman <span class="text-brand-primary">Kerja</span></h2>
+            <span class="font-handwriting text-3xl text-brand-primary font-bold">♡</span>
+          </div>
+          <p class="text-sm text-brand-gray mt-1">Rekam jejak profesional pada berbagai sektor korporasi dan institusi.</p>
+        </div>
+
+        <!-- Interactive Filter Tabs -->
+        <div class="flex flex-wrap self-start items-center gap-1 bg-[#FFE3E2]/60 p-1.5 rounded-2xl sm:rounded-full border border-[#FFC7C5] shrink-0">
+          <button onclick="filterExperience('all')" class="exp-tab px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 bg-brand-primary text-white shadow-xs" data-filter="all">Semua</button>
+          <button onclick="filterExperience('corporate')" class="exp-tab px-4 py-2 rounded-full text-xs font-semibold text-brand-primary-dark hover:text-brand-dark transition-all duration-300" data-filter="corporate">Korporat</button>
+          <button onclick="filterExperience('banking')" class="exp-tab px-4 py-2 rounded-full text-xs font-semibold text-brand-primary-dark hover:text-brand-dark transition-all duration-300" data-filter="banking">Perbankan</button>
+          <button onclick="filterExperience('gov')" class="exp-tab px-4 py-2 rounded-full text-xs font-semibold text-brand-primary-dark hover:text-brand-dark transition-all duration-300" data-filter="gov">Kementerian</button>
+        </div>
+      </div>
+
+      <!-- Experience Cards Grid -->
+      <div id="experience-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        
+        <!-- Experience 1: PT Barazaki Kirana Persada -->
+        <div class="exp-item exp-corporate bg-white rounded-3xl border border-[#FFC7C5] overflow-hidden shadow-soft smooth-card flex flex-col justify-between group reveal delay-1">
+          <div>
+            <div class="bg-[#FFE3E2] p-6 border-b border-[#FFC7C5]/40 flex flex-col items-start gap-3 min-h-[120px]">
+              <span class="text-[13px] font-bold leading-snug text-brand-primary-dark bg-white px-3 py-1.5 rounded-full shadow-xs">
+                Admin & Finance
+              </span>
+              <span class="text-[13px] font-medium text-brand-gray">Juli 2025 – Sekarang</span>
+            </div>
+            <div class="p-6 space-y-4">
+              <h3 class="text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors">PT Barazaki Kirana Persada</h3>
+              <ul class="text-xs text-brand-gray space-y-2.5 leading-relaxed">
+                <li class="flex items-start gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-primary shrink-0 mt-0.5"></i>
+                  <span>Menyusun rekonsiliasi saldo bank secara berkala untuk memastikan kecocokan mutasi kas.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-primary shrink-0 mt-0.5"></i>
+                  <span>Melaksanakan administrasi harian, pencatatan transaksi masuk/keluar, dan verifikasi kuitansi.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-primary shrink-0 mt-0.5"></i>
+                  <span>Membuat dan menerbitkan invoice resmi klien tepat waktu dengan akurasi nominal 100%.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-3 border-t border-[#FFC7C5]/30">
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-primary-dark">
+              <i data-lucide="shield-check" class="w-4 h-4 text-brand-primary"></i>
+              <span>Keuangan Korporat & Penagihan</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Experience 2: BSI KCP Jakarta Cikini -->
+        <div class="exp-item exp-banking bg-white rounded-3xl border border-[#FFC7C5] overflow-hidden shadow-soft smooth-card flex flex-col justify-between group reveal delay-2">
+          <div>
+            <div class="bg-[#FFF0EF] p-6 border-b border-[#FFC7C5]/40 flex flex-col items-start gap-3 min-h-[120px]">
+              <span class="text-[13px] font-bold leading-snug text-brand-primary-dark bg-white px-3 py-1.5 rounded-full shadow-xs">
+                Backoffice Operations
+              </span>
+              <span class="text-[13px] font-medium text-brand-gray">Des 2026 – Juni 2026</span>
+            </div>
+            <div class="p-6 space-y-4">
+              <h3 class="text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors">BSI KCP Jakarta Cikini</h3>
+              <ul class="text-xs text-brand-gray space-y-2.5 leading-relaxed">
+                <li class="flex items-start gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-primary shrink-0 mt-0.5"></i>
+                  <span>Mendukung penuh kelancaran administrasi operasional perbankan syariah di kantor cabang.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-primary shrink-0 mt-0.5"></i>
+                  <span>Mengelola administrasi surat masuk dan surat keluar unit operasional secara tertib dan sistematis.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-primary shrink-0 mt-0.5"></i>
+                  <span>Membantu validasi dan pengarsipan berkas dokumen penting perbankan.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-3 border-t border-[#FFC7C5]/30">
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-primary-dark">
+              <i data-lucide="building" class="w-4 h-4 text-brand-primary"></i>
+              <span>Operasional Perbankan Syariah</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Experience 3: Kementerian Perindustrian RI -->
+        <div class="exp-item exp-gov bg-white rounded-3xl border border-[#FFC7C5] overflow-hidden shadow-soft smooth-card flex flex-col justify-between group reveal delay-3">
+          <div>
+            <div class="bg-[#FFE8E7] p-6 border-b border-[#FFC7C5]/40 flex flex-col items-start gap-3 min-h-[120px]">
+              <span class="text-[13px] font-bold leading-snug text-brand-primary-dark bg-white px-3 py-1.5 rounded-full shadow-xs">
+                Accounting & Receptionist
+              </span>
+              <span class="text-[13px] font-medium text-brand-gray">Jan 2025 – Mei 2025</span>
+            </div>
+            <div class="p-6 space-y-4">
+              <h3 class="text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors">Kementerian Perindustrian RI</h3>
+              <ul class="text-xs text-brand-gray space-y-2.5 leading-relaxed">
+                <li class="flex items-start gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-primary shrink-0 mt-0.5"></i>
+                  <span>Mengoperasikan portal DJP Online untuk pemrosesan administrasi perpajakan kementerian.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-primary shrink-0 mt-0.5"></i>
+                  <span>Membuat bukti pemotongan PPh Pasal 21 (Final) secara tepat waktu dan valid.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-brand-primary shrink-0 mt-0.5"></i>
+                  <span>Berpengalaman sebagai Resepsionis: pelayanan keluhan tamu, verifikasi identitas, dan data tamu.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-3 border-t border-[#FFC7C5]/30">
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-primary-dark">
+              <i data-lucide="landmark" class="w-4 h-4 text-brand-primary"></i>
+              <span>Perpajakan & Birokrasi Pemerintah</span>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= MY WORKFLOW / PROCESS ================= -->
+  <section id="process" class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-16 space-y-2 reveal">
+        <div class="inline-flex items-center justify-center gap-2">
+          <h2 class="text-3xl font-extrabold text-brand-dark">Alur Kerja <span class="text-brand-primary">Akuntansi</span></h2>
+          <span class="font-handwriting text-3xl text-brand-primary font-bold">♡</span>
+        </div>
+        <p class="text-sm sm:text-base text-brand-gray">
+          Metodologi pembukuan dan administrasi keuangan standar untuk hasil yang akurat dan siap audit.
+        </p>
+      </div>
+
+      <!-- 6 Steps Timeline -->
+      <div class="relative">
+        <div class="hidden lg:block absolute top-1/2 left-10 right-10 -translate-y-8 border-t-2 border-dashed border-[#FFC7C5] -z-10"></div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-4">
+          <!-- Step 01 -->
+          <div class="flex flex-col items-center text-center space-y-2 group reveal delay-1">
+            <div class="w-16 h-16 rounded-2xl bg-white border-2 border-[#FFC7C5] flex items-center justify-center shadow-soft group-hover:border-brand-primary group-hover:bg-[#FFE3E2] group-hover:scale-110 transition-all duration-400 ease-out">
+              <i data-lucide="file-search" class="w-6 h-6 text-brand-primary"></i>
+            </div>
+            <span class="text-xs font-bold text-brand-primary tracking-wider">01</span>
+            <h4 class="text-sm font-bold text-brand-dark">Verifikasi</h4>
+            <p class="text-[11px] text-brand-gray leading-relaxed">Pengecekan keabsahan kuitansi, faktur, dan bukti transaksi.</p>
+          </div>
+
+          <!-- Step 02 -->
+          <div class="flex flex-col items-center text-center space-y-2 group reveal delay-2">
+            <div class="w-16 h-16 rounded-2xl bg-white border-2 border-[#FFC7C5] flex items-center justify-center shadow-soft group-hover:border-brand-primary group-hover:bg-[#FFE3E2] group-hover:scale-110 transition-all duration-400 ease-out">
+              <i data-lucide="edit-3" class="w-6 h-6 text-brand-primary-dark"></i>
+            </div>
+            <span class="text-xs font-bold text-brand-primary-dark tracking-wider">02</span>
+            <h4 class="text-sm font-bold text-brand-dark">Pencatatan</h4>
+            <p class="text-[11px] text-brand-gray leading-relaxed">Input entri jurnal dan pembukuan ke sistem ACCURATE/Excel.</p>
+          </div>
+
+          <!-- Step 03 -->
+          <div class="flex flex-col items-center text-center space-y-2 group reveal delay-3">
+            <div class="w-16 h-16 rounded-2xl bg-white border-2 border-[#FFC7C5] flex items-center justify-center shadow-soft group-hover:border-brand-primary group-hover:bg-[#FFE3E2] group-hover:scale-110 transition-all duration-400 ease-out">
+              <i data-lucide="git-compare" class="w-6 h-6 text-brand-primary"></i>
+            </div>
+            <span class="text-xs font-bold text-brand-primary tracking-wider">03</span>
+            <h4 class="text-sm font-bold text-brand-dark">Rekonsiliasi</h4>
+            <p class="text-[11px] text-brand-gray leading-relaxed">Penyamaan saldo buku kas dengan mutasi rekening koran bank.</p>
+          </div>
+
+          <!-- Step 04 -->
+          <div class="flex flex-col items-center text-center space-y-2 group reveal delay-4">
+            <div class="w-16 h-16 rounded-2xl bg-white border-2 border-[#FFC7C5] flex items-center justify-center shadow-soft group-hover:border-brand-primary group-hover:bg-[#FFE3E2] group-hover:scale-110 transition-all duration-400 ease-out">
+              <i data-lucide="bar-chart-2" class="w-6 h-6 text-brand-primary-dark"></i>
+            </div>
+            <span class="text-xs font-bold text-brand-primary-dark tracking-wider">04</span>
+            <h4 class="text-sm font-bold text-brand-dark">Pelaporan</h4>
+            <p class="text-[11px] text-brand-gray leading-relaxed">Penyusunan laporan laba-rugi, neraca, dan arus kas berkala.</p>
+          </div>
+
+          <!-- Step 05 -->
+          <div class="flex flex-col items-center text-center space-y-2 group reveal delay-5">
+            <div class="w-16 h-16 rounded-2xl bg-white border-2 border-[#FFC7C5] flex items-center justify-center shadow-soft group-hover:border-brand-primary group-hover:bg-[#FFE3E2] group-hover:scale-110 transition-all duration-400 ease-out">
+              <i data-lucide="file-text" class="w-6 h-6 text-brand-primary"></i>
+            </div>
+            <span class="text-xs font-bold text-brand-primary tracking-wider">05</span>
+            <h4 class="text-sm font-bold text-brand-dark">Pajak (DJP)</h4>
+            <p class="text-[11px] text-brand-gray leading-relaxed">Perhitungan dan pembuatan bukti potong pajak PPh 21 Final.</p>
+          </div>
+
+          <!-- Step 06 -->
+          <div class="flex flex-col items-center text-center space-y-2 group reveal delay-6">
+            <div class="w-16 h-16 rounded-2xl bg-white border-2 border-[#FFC7C5] flex items-center justify-center shadow-soft group-hover:border-brand-primary group-hover:bg-[#FFE3E2] group-hover:scale-110 transition-all duration-400 ease-out">
+              <i data-lucide="archive" class="w-6 h-6 text-brand-primary-dark"></i>
+            </div>
+            <span class="text-xs font-bold text-brand-primary-dark tracking-wider">06</span>
+            <h4 class="text-sm font-bold text-brand-dark">Arsip & Audit</h4>
+            <p class="text-[11px] text-brand-gray leading-relaxed">Pengarsipan digital terstruktur menggunakan standar ATLAS.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CERTIFICATIONS & WORKSHOPS ================= -->
+  <section id="certifications" class="py-20 bg-white/70 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-14 space-y-2 reveal">
+        <div class="inline-flex items-center justify-center gap-2">
+          <h2 class="text-3xl font-extrabold text-brand-dark">Sertifikasi & <span class="text-brand-primary">Pelatihan</span></h2>
+          <span class="font-handwriting text-3xl text-brand-primary font-bold">♡</span>
+        </div>
+        <p class="text-sm sm:text-base text-brand-gray">Kualifikasi resmi dan sertifikat kompetensi profesional yang telah diraih.</p>
+      </div>
+
+      <!-- Certifications Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Cert 1: ACCURATE CAP -->
+        <div class="bg-white p-7 rounded-3xl border border-[#FFC7C5] shadow-soft smooth-card flex flex-col justify-between reveal delay-1">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-[#FFE3E2] text-brand-primary flex items-center justify-center">
+              <i data-lucide="award" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-base font-bold text-brand-dark leading-snug">Certificate ACCURATE Professional (CAP)</h4>
+            <p class="text-xs text-brand-gray leading-relaxed">
+              Sertifikasi resmi kompetensi pengoperasian software akuntansi ACCURATE dari CPSSOFT untuk otomasi siklus pembukuan usaha terpadu.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-[#FFC7C5]/40 mt-6 flex items-center justify-between">
+            <span class="text-xs font-bold text-brand-primary-dark">CPSSOFT</span>
+            <span class="text-xs px-3 py-1 rounded-full bg-[#FFE3E2] text-brand-primary-dark font-bold">Tahun 2024</span>
+          </div>
+        </div>
+
+        <!-- Cert 2: Brevet A&B -->
+        <div class="bg-white p-7 rounded-3xl border border-[#FFC7C5] shadow-soft smooth-card flex flex-col justify-between reveal delay-2">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center">
+              <i data-lucide="shield-check" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-base font-bold text-brand-dark leading-snug">Sertifikasi Perpajakan Brevet A&B Terpadu</h4>
+            <p class="text-xs text-brand-gray leading-relaxed">
+              Pelatihan intensif perpajakan komprehensif meliputi KUP, PPh Orang Pribadi, PPh Badan, PPh Pasal 21/22/23/Final, dan PPN.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-[#FFC7C5]/40 mt-6 flex items-center justify-between">
+            <span class="text-xs font-bold text-brand-primary-dark">TaxSys Academy</span>
+            <span class="text-xs px-3 py-1 rounded-full bg-[#FFE3E2] text-brand-primary-dark font-bold">Tahun 2024</span>
+          </div>
+        </div>
+
+        <!-- Cert 3: TOEFL & Audit ATLAS -->
+        <div class="bg-white p-7 rounded-3xl border border-[#FFC7C5] shadow-soft smooth-card flex flex-col justify-between reveal delay-3">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-[#FFE3E2] text-brand-primary flex items-center justify-center">
+              <i data-lucide="book-open" class="w-6 h-6"></i>
+            </div>
+            <h4 class="text-base font-bold text-brand-dark leading-snug">TOEFL & Workshop Audit ATLAS</h4>
+            <p class="text-xs text-brand-gray leading-relaxed">
+              Certificate TOEFL dari LBPP LIA Pramuka (2025), Workshop ATLAS (Audit Tool and Linked Archive System 2024), serta Sekolah Investasi (2023).
+            </p>
+          </div>
+          <div class="pt-6 border-t border-[#FFC7C5]/40 mt-6 flex items-center justify-between">
+            <span class="text-xs font-bold text-brand-primary-dark">LIA & PNJ</span>
+            <span class="text-xs px-3 py-1 rounded-full bg-[#FFE3E2] text-brand-primary-dark font-bold">2023 – 2025</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Additional Experience Tag: Organisasi -->
+      <div class="mt-8 bg-white p-6 rounded-3xl border border-[#FFC7C5] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-soft reveal">
+        <div class="flex items-center gap-3.5">
+          <div class="w-11 h-11 rounded-2xl bg-[#FFE3E2] text-brand-primary flex items-center justify-center shrink-0">
+            <i data-lucide="users" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h5 class="text-xs font-bold text-brand-dark">Pengalaman Organisasi & Kepemimpinan</h5>
+            <p class="text-[11px] text-brand-gray">Sosial Masyarakat BEM PNJ (Penggalangan Dana & Sumber Daya) dan Divisi Tari UKM Pankreas.</p>
+          </div>
+        </div>
+        <span class="text-xs px-4 py-2 rounded-full bg-[#FFE3E2] text-brand-primary-dark font-extrabold whitespace-nowrap shadow-xs">
+          Kolaborasi & Tanggung Jawab
+        </span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Calculators use entered values only; no bank connection or persistence. -->
+  <section id="balance-comparison" class="py-4" aria-labelledby="balance-title">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="tool-workspace bg-white rounded-3xl border border-[#FFC7C5] p-5 sm:p-6 shadow-soft reveal">
+        <div class="space-y-6">
+          <div class="space-y-2">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h2 id="balance-title" class="text-2xl font-bold text-brand-dark">Accounting Mini Tools</h2>
+              <div class="flex flex-wrap gap-2">
+                <button id="load-tool-demo" type="button" class="tool-button" title="Mengganti input tab aktif dengan contoh fiktif">Muat Contoh Demo</button>
+                <button id="clear-tool-demo" type="button" class="tool-button">Kosongkan Tab</button>
+              </div>
+            </div>
+            <p class="text-sm text-brand-gray leading-relaxed">Pilih alat, isi data, lalu lihat hasilnya. Data hanya ada selama halaman terbuka.</p>
+          </div>
+          <div class="tool-tabs" role="tablist" aria-label="Pilih alat accounting">
+            <button id="tab-invoice" type="button" class="tool-tab" role="tab" aria-selected="true" aria-controls="panel-invoice" tabindex="0">Invoice</button>
+            <button id="tab-balance" type="button" class="tool-tab" role="tab" aria-selected="false" aria-controls="panel-balance" tabindex="-1">Bandingkan Saldo</button>
+            <button id="tab-journal" type="button" class="tool-tab" role="tab" aria-selected="false" aria-controls="panel-journal" tabindex="-1">Cek Debit–Kredit</button>
+            <button id="tab-profit" type="button" class="tool-tab" role="tab" aria-selected="false" aria-controls="panel-profit" tabindex="-1">Laba–Rugi</button>
+            <button id="tab-asset" type="button" class="tool-tab" role="tab" aria-selected="false" aria-controls="panel-asset" tabindex="-1">Penyusutan Aset</button>
+            <button id="tab-ledger" type="button" class="tool-tab" role="tab" aria-selected="false" aria-controls="panel-ledger" tabindex="-1">Pembukuan</button>
+          </div>
+          <p class="sm:hidden text-xs text-brand-gray">Geser menu untuk memilih alat lainnya.</p>
+          <details class="tool-help text-sm text-brand-gray">
+            <summary class="cursor-pointer font-medium">Petunjuk format angka & privasi</summary>
+            <p id="tools-money-help" class="mt-2">Rupiah bulat tanpa titik/koma, maksimal 18 digit; angka 0 diperbolehkan. Saldo negatif hanya untuk Bandingkan Saldo dan saldo awal Pembukuan. Data tidak disimpan permanen atau dikirim ke bank.</p>
+          </details>
+          <div id="panel-balance" class="tool-panel space-y-4" role="tabpanel" aria-labelledby="tab-balance" hidden>
+          <p class="text-sm text-brand-gray leading-relaxed">Bandingkan saldo buku kas dan rekening bank. Ini bukan pencocokan transaksi satu per satu.</p>
+          <form id="reconcile-form" class="space-y-4" novalidate>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="min-w-0 space-y-2">
+                <label for="cash-balance" class="block text-sm font-semibold text-brand-dark">Saldo buku kas (Rp)</label>
+                <input id="cash-balance" name="cashBalance" type="text" inputmode="numeric" maxlength="19" required placeholder="Contoh: 1000000" aria-describedby="tools-money-help balance-help reconcile-result" class="accounting-input">
+              </div>
+              <div class="min-w-0 space-y-2">
+                <label for="bank-balance" class="block text-sm font-semibold text-brand-dark">Saldo rekening bank (Rp)</label>
+                <input id="bank-balance" name="bankBalance" type="text" inputmode="numeric" maxlength="19" required placeholder="Contoh: 1000000" aria-describedby="tools-money-help balance-help reconcile-result" class="accounting-input">
+              </div>
+            </div>
+            <p id="balance-help" class="text-sm text-brand-gray">Gunakan saldo pada tanggal yang sama agar perbandingannya relevan.</p>
+            <button type="submit" class="tool-button tool-submit">
+              Bandingkan Saldo
+            </button>
+            <div id="reconcile-result" role="status" aria-live="polite" aria-atomic="true" class="tool-result">
+              Isi kedua saldo, lalu pilih Bandingkan Saldo.
+            </div>
+          </form>
+          </div>
+
+          <div id="panel-journal" class="tool-panel space-y-4" role="tabpanel" aria-labelledby="tab-journal" hidden>
+            <p class="text-sm text-brand-gray leading-relaxed">Tambahkan nominal debit dan kredit, lalu periksa keseimbangan totalnya. Setiap entri berisi satu sisi pencatatan.</p>
+            <form id="journal-form" class="space-y-4" novalidate>
+              <div id="journal-rows" class="space-y-3"></div>
+              <button id="add-journal" type="button" class="tool-button">+ Tambah entri</button>
+              <div><button type="submit" class="tool-button tool-submit">Cek Keseimbangan</button></div>
+              <div id="journal-result" class="tool-result" role="status" aria-live="polite" aria-atomic="true">Isi nominal debit dan kredit, lalu pilih Cek Keseimbangan.</div>
+            </form>
+          </div>
+
+          <div id="panel-profit" class="tool-panel space-y-4" role="tabpanel" aria-labelledby="tab-profit" hidden>
+            <p class="text-sm text-brand-gray leading-relaxed">Masukkan pendapatan dan rincian beban untuk periode yang sama. Hasil adalah pendapatan dikurangi total beban yang dimasukkan.</p>
+            <form id="profit-form" class="space-y-4" novalidate>
+              <div class="max-w-lg">
+                <label for="revenue-amount">Total pendapatan (Rp)</label>
+                <input id="revenue-amount" type="text" inputmode="numeric" maxlength="18" class="accounting-input" placeholder="Masukkan total pendapatan" aria-describedby="tools-money-help profit-result" required>
+              </div>
+              <div id="expense-rows" class="space-y-3"></div>
+              <button id="add-expense" type="button" class="tool-button">+ Tambah beban</button>
+              <div><button type="submit" class="tool-button tool-submit">Hitung Laba / Rugi</button></div>
+              <div id="profit-result" class="tool-result" role="status" aria-live="polite" aria-atomic="true">Isi pendapatan dan beban. Jika tidak ada beban, masukkan 0.</div>
+            </form>
+          </div>
+
+          <div id="panel-asset" class="tool-panel space-y-4" role="tabpanel" aria-labelledby="tab-asset" hidden>
+            <p class="text-sm text-brand-gray leading-relaxed">Metode garis lurus: (harga perolehan − nilai residu) ÷ masa manfaat. Perhitungan ini mengasumsikan pemakaian satu tahun penuh, bukan penyusutan fiskal atau prorata tanggal pembelian.</p>
+            <form id="asset-form" class="space-y-4" novalidate>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="min-w-0">
+                  <label for="asset-cost">Harga perolehan (Rp)</label>
+                  <input id="asset-cost" type="text" inputmode="numeric" maxlength="18" class="accounting-input" placeholder="Masukkan harga aset" aria-describedby="tools-money-help asset-help asset-result" required>
+                </div>
+                <div class="min-w-0">
+                  <label for="asset-residual">Nilai residu (Rp)</label>
+                  <input id="asset-residual" type="text" inputmode="numeric" maxlength="18" class="accounting-input" placeholder="Masukkan nilai sisa, atau 0" aria-describedby="tools-money-help asset-help asset-result" required>
+                </div>
+                <div class="min-w-0">
+                  <label for="asset-years">Masa manfaat (tahun)</label>
+                  <input id="asset-years" type="text" inputmode="numeric" maxlength="3" class="accounting-input" placeholder="Contoh: 5" aria-describedby="asset-help asset-result" required>
+                </div>
+              </div>
+              <p id="asset-help" class="text-sm text-brand-gray">Harga perolehan harus lebih dari 0. Nilai residu tidak boleh melebihi harga perolehan. Masa manfaat: 1–100 tahun bulat.</p>
+              <button type="submit" class="tool-button tool-submit">Hitung Penyusutan</button>
+              <div id="asset-result" class="tool-result" role="status" aria-live="polite" aria-atomic="true">Isi harga perolehan, nilai residu, dan masa manfaat.</div>
+            </form>
+          </div>
+
+          <div id="panel-ledger" class="tool-panel space-y-4" role="tabpanel" aria-labelledby="tab-ledger" hidden>
+            <p class="text-sm text-brand-gray leading-relaxed">Catat uang masuk dan keluar untuk membuat buku kas sederhana, bukan jurnal berpasangan. Transaksi diurutkan berdasarkan tanggal; urutan input dipakai untuk tanggal yang sama.</p>
+            <form id="ledger-form" class="space-y-4" novalidate>
+              <div class="max-w-lg">
+                <label for="ledger-opening">Saldo awal sebelum transaksi pertama (Rp)</label>
+                <input id="ledger-opening" type="text" inputmode="numeric" maxlength="19" class="accounting-input" value="0" aria-describedby="tools-money-help ledger-result" required>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div><label for="ledger-from">Dari tanggal (opsional)</label><input id="ledger-from" type="date" class="accounting-input" aria-describedby="ledger-period-help ledger-result"></div>
+                <div><label for="ledger-to">Sampai tanggal (opsional)</label><input id="ledger-to" type="date" class="accounting-input" aria-describedby="ledger-period-help ledger-result"></div>
+              </div>
+              <p id="ledger-period-help" class="text-sm text-brand-gray">Saldo awal periode tetap membawa transaksi sebelumnya. Filter hanya membatasi baris dan total periode, tidak menghapus transaksi.</p>
+              <div id="ledger-rows" class="space-y-3"></div>
+              <button id="add-ledger" type="button" class="tool-button">+ Tambah transaksi</button>
+              <div class="flex flex-wrap gap-2"><button type="submit" class="tool-button tool-submit">Susun Buku Kas</button><button id="export-ledger" type="button" class="tool-button" disabled>Ekspor CSV</button><button id="print-ledger" type="button" class="tool-button" disabled>Cetak Buku Kas</button></div>
+              <div id="ledger-result" class="tool-result" role="status" aria-live="polite" aria-atomic="true">Isi saldo awal dan setidaknya satu transaksi.</div>
+              <div id="ledger-preview" class="document-preview print-document" data-preview hidden></div>
+            </form>
+          </div>
+
+          <div id="panel-invoice" class="tool-panel space-y-4" role="tabpanel" aria-labelledby="tab-invoice">
+            <p class="text-sm text-brand-gray leading-relaxed">Demo invoice dengan diskon, PPN opsional, dan pembayaran sebagian. Harga satuan diisi belum termasuk PPN. Ini bukan faktur pajak.</p>
+            <form id="invoice-form" class="space-y-4" novalidate>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="min-w-0">
+                  <label for="invoice-seller">Nama penerbit / usaha</label>
+                  <input id="invoice-seller" type="text" maxlength="120" class="accounting-input" placeholder="Nama penerbit invoice" aria-describedby="invoice-result" required>
+                </div>
+                <div class="min-w-0">
+                  <label for="invoice-client">Nama klien</label>
+                  <input id="invoice-client" type="text" maxlength="120" class="accounting-input" placeholder="Nama penerima tagihan" aria-describedby="invoice-result" required>
+                </div>
+                <div class="min-w-0">
+                  <label for="invoice-number">Nomor invoice</label>
+                  <input id="invoice-number" type="text" maxlength="60" class="accounting-input" placeholder="Contoh: INV-001" aria-describedby="invoice-result" required>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 min-w-0">
+                  <div class="min-w-0">
+                    <label for="invoice-date">Tanggal terbit</label>
+                    <input id="invoice-date" type="date" class="accounting-input" aria-describedby="invoice-result" required>
+                  </div>
+                  <div class="min-w-0">
+                    <label for="invoice-due">Jatuh tempo</label>
+                    <input id="invoice-due" type="date" class="accounting-input" aria-describedby="invoice-result" required>
+                  </div>
+                </div>
+              </div>
+              <details class="text-sm text-brand-gray">
+                <summary class="cursor-pointer font-semibold">Informasi dokumen & tanda tangan (opsional)</summary>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+                  <div><label for="invoice-seller-details">Alamat / kontak penerbit</label><textarea id="invoice-seller-details" maxlength="300" rows="3" class="accounting-input" placeholder="Alamat dan kontak yang ingin dicantumkan"></textarea></div>
+                  <div><label for="invoice-client-details">Alamat / kontak klien</label><textarea id="invoice-client-details" maxlength="300" rows="3" class="accounting-input" placeholder="Alamat dan kontak penerima tagihan"></textarea></div>
+                  <div><label for="invoice-po">Nomor PO / WO</label><input id="invoice-po" type="text" maxlength="80" class="accounting-input" placeholder="Isi jika ada"></div>
+                  <div><label for="invoice-po-date">Tanggal PO / WO</label><input id="invoice-po-date" type="date" class="accounting-input" aria-describedby="invoice-result"></div>
+                  <div><label for="invoice-payment-method">Metode pembayaran</label><input id="invoice-payment-method" type="text" maxlength="80" class="accounting-input" placeholder="Contoh: Transfer bank"></div>
+                  <div><label for="invoice-signatory">Nama penanggung jawab</label><input id="invoice-signatory" type="text" maxlength="100" class="accounting-input" placeholder="Nama yang akan menandatangani"></div>
+                  <div><label for="invoice-signatory-role">Jabatan penanggung jawab</label><input id="invoice-signatory-role" type="text" maxlength="80" class="accounting-input" placeholder="Contoh: Finance"></div>
+                </div>
+              </details>
+              <div id="invoice-rows" class="space-y-3"></div>
+              <button id="add-invoice" type="button" class="tool-button">+ Tambah item</button>
+              <details class="space-y-3">
+                <summary class="cursor-pointer font-semibold">PPN, diskon, pembayaran &amp; catatan (opsional)</summary>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="sm:col-span-2">
+                  <label for="invoice-vat">Skema PPN (simulasi)</label>
+                  <select id="invoice-vat" class="accounting-input cursor-pointer" aria-describedby="invoice-vat-help invoice-result">
+                    <option value="none">Tanpa PPN (default)</option>
+                    <option value="effective11">Nonmewah umum: 12% × DPP 11/12 (efektif 11%)</option>
+                    <option value="full12">Barang mewah: 12% × harga setelah diskon</option>
+                  </select>
+                </div>
+                <div><label for="invoice-discount-mode">Jenis diskon</label><select id="invoice-discount-mode" class="accounting-input cursor-pointer"><option value="amount">Nominal rupiah</option><option value="percent">Persentase (%)</option></select></div>
+                <div><label for="invoice-discount">Nilai diskon (Rp / % sesuai jenis)</label><input id="invoice-discount" type="text" inputmode="decimal" maxlength="18" class="accounting-input" value="0" aria-describedby="invoice-rounding invoice-result" required></div>
+                <div><label for="invoice-paid">Sudah dibayar (Rp)</label><input id="invoice-paid" type="text" inputmode="numeric" maxlength="18" class="accounting-input" value="0" aria-describedby="invoice-result tools-money-help" required></div>
+                <div><label for="invoice-asof">Status pembayaran per tanggal</label><input id="invoice-asof" type="date" class="accounting-input" aria-describedby="invoice-result" required></div>
+              </div>
+              <p id="invoice-vat-help" class="text-sm text-brand-gray">PPN hanya dihitung jika dipilih, dari nilai setelah diskon. Jangan masukkan harga yang sudah termasuk PPN. Skema ini bukan penetapan kewajiban pajak; status PKP, objek, dan aturan khusus tetap perlu diperiksa. <a href="https://jdih.kemenkeu.go.id/dok/pmk-131-tahun-2024/summary" target="_blank" rel="noopener noreferrer" class="underline">Rujukan PMK 131/2024</a>.</p>
+              <div><label for="invoice-notes">Catatan / instruksi pembayaran (opsional)</label><textarea id="invoice-notes" maxlength="500" rows="3" class="accounting-input" placeholder="Isi instruksi pembayaran jika diperlukan. Jangan masukkan data sensitif untuk demo."></textarea></div>
+              <p id="invoice-rounding" class="text-sm text-brand-gray">Kuantitas maksimal 999999,999 (3 desimal). Diskon persen: 0–100%, maksimal 2 desimal. Item, diskon, dan PPN dibulatkan ke rupiah terdekat (0,5 ke atas). DPP tidak dibulatkan sebelum menghitung PPN. Simpan PDF lewat dialog cetak.</p>
+              </details>
+              <div class="flex flex-wrap gap-3">
+                <button type="submit" class="tool-button tool-submit">Buat Pratinjau Invoice</button>
+                <button id="print-invoice" type="button" class="tool-button" disabled>Cetak / Simpan PDF</button>
+              </div>
+              <div id="invoice-result" class="tool-result" role="status" aria-live="polite" aria-atomic="true">Isi identitas, tanggal, dan setidaknya satu item untuk membuat invoice.</div>
+              <div id="invoice-preview" class="document-preview print-document" data-preview hidden></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT CALLOUT BANNER ================= -->
+  <section id="contact" class="py-16 reveal">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="border-2 border-white rounded-[2.5rem] p-8 sm:p-12 shadow-card-hover relative overflow-hidden" style="background: #FDECF4">
+        <!-- Floating decorative shape -->
+        <div class="absolute -right-10 -bottom-10 w-52 h-52 bg-white/60 rounded-full blur-2xl"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
+          <!-- Left: Photo -->
+          <div class="md:col-span-5">
+            <div class="rounded-[2rem] overflow-hidden">
+              <img src="contact-photo-full.webp" alt="Nur Sa'idah bekerja dengan laptop dan bunga di meja" class="w-full h-auto block" width="1104" height="832">
+            </div>
+          </div>
+
+          <!-- Right: Content -->
+          <div class="md:col-span-7 space-y-5">
+            <div class="space-y-1.5">
+              <h3 class="text-2xl sm:text-3xl font-extrabold text-brand-dark flex items-center gap-2">
+                Mari diskusikan kebutuhan finansial Anda! <span class="text-brand-primary font-handwriting text-3xl">♡</span>
+              </h3>
+              <p class="text-xs sm:text-sm text-brand-gray leading-relaxed">
+                Terbuka untuk peluang kerja full-time, kontrak, maupun kerja sama pengelolaan pembukuan.
+              </p>
+            </div>
+
+            <div class="space-y-2 text-xs font-semibold text-brand-gray">
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="mail" class="w-4 h-4 text-brand-primary-dark"></i>
+                <a href="mailto:nur.saidahh19@gmail.com" class="hover:text-brand-primary transition-colors">nur.saidahh19@gmail.com</a>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="phone" class="w-4 h-4 text-brand-primary-dark"></i>
+                <a href="https://wa.me/6289517362741" target="_blank" class="hover:text-brand-primary transition-colors">+62 895 1736 2741</a>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <i data-lucide="map-pin" class="w-4 h-4 text-brand-primary-dark"></i>
+                <span>Cipayung, Jakarta Timur</span>
+              </div>
+            </div>
+
+            <a href="https://wa.me/6289517362741" target="_blank" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#F98B88] to-[#AE615F] text-white font-bold text-sm shadow-soft hover:shadow-glow hover:scale-105 active:scale-95 transition-all duration-300 shrink-0">
+              <span>Hubungi Sekarang</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t border-[#FFC7C5]/40 py-12">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <!-- Footer Logo -->
+      <div class="flex flex-col items-center md:items-start">
+        <span class="text-lg font-bold tracking-tight text-brand-dark flex items-center gap-1">
+          Nur Sa'idah <span class="text-brand-primary font-handwriting text-xl font-bold">♡</span>
+        </span>
+        <span class="text-[9px] uppercase font-bold tracking-widest text-brand-primary-dark">FINANCE & ACCOUNTING SPECIALIST</span>
+      </div>
+
+      <!-- Quick Nav Links -->
+      <div class="flex flex-col items-center">
+        <span class="text-[11px] font-bold text-brand-dark mb-1">Navigasi Cepat</span>
+        <div class="flex flex-wrap items-center justify-center gap-5 text-xs font-medium text-brand-gray">
+          <a href="#home" class="hover:text-brand-primary transition-colors">Beranda</a>
+          <a href="#about" class="hover:text-brand-primary transition-colors">Tentang</a>
+          <a href="#skills" class="hover:text-brand-primary transition-colors">Keahlian & Tools</a>
+          <a href="#experience" class="hover:text-brand-primary transition-colors">Pengalaman</a>
+          <a href="#process" class="hover:text-brand-primary transition-colors">Alur Kerja</a>
+          <a href="#certifications" class="hover:text-brand-primary transition-colors">Sertifikasi</a>
+        </div>
+      </div>
+
+      <!-- Footer Social Icons & Copyright -->
+      <div class="flex flex-col items-center md:items-end gap-3 text-center md:text-right">
+        <div class="flex items-center gap-2">
+          <span class="text-[11px] font-bold text-brand-dark mr-1">Terhubung:</span>
+          <button onclick="copyEmail()" class="w-7 h-7 rounded-full bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center text-xs hover:bg-brand-primary hover:text-white transition-all shadow-xs" title="Salin Email">
+            <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+          </button>
+          <a href="https://wa.me/6289517362741" target="_blank" class="w-7 h-7 rounded-full bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center text-xs hover:bg-brand-primary hover:text-white transition-all shadow-xs" title="Chat WhatsApp">
+            <i data-lucide="phone" class="w-3.5 h-3.5"></i>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="w-7 h-7 rounded-full bg-[#FFE3E2] text-brand-primary-dark flex items-center justify-center font-bold text-[10px] hover:bg-brand-primary hover:text-white transition-all shadow-xs">
+            in
+          </a>
+        </div>
+        <p class="text-[11px] text-brand-gray/80">
+          © 2025 Nur Sa'idah. All Rights Reserved.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= CV QUICK-VIEW MODAL DIALOG ================= -->
+  <div id="cv-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/45 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-400 ease-out">
+    <div id="cv-modal-content" class="modal-dialog bg-white rounded-[2.5rem] border border-[#FFC7C5] max-w-2xl w-full p-8 shadow-card-hover relative max-h-[90vh] overflow-y-auto custom-scroll scale-95 opacity-0">
+      
+      <!-- Close Button -->
+      <button onclick="closeCvModal()" class="absolute top-6 right-6 p-2 rounded-full bg-[#FFE3E2] text-brand-dark hover:bg-brand-primary hover:text-white active:scale-90 transition-all">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="space-y-6">
+        <!-- Header -->
+        <div class="border-b border-[#FFC7C5]/40 pb-4">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-brand-primary-dark">Curriculum Vitae Ringkasan</span>
+          <h3 class="text-2xl font-bold text-brand-dark">Nur Sa'idah</h3>
+          <p class="text-xs text-brand-gray">Cipayung, Jakarta Timur • nur.saidahh19@gmail.com • +62 895 1736 2741</p>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-brand-primary-dark">Profil Profesional</h4>
+          <p class="text-xs text-brand-gray leading-relaxed">
+            Lulusan Politeknik Negeri Jakarta, Jurusan Akuntansi (D3 Keuangan dan Perbankan, IPK 3.45) dengan pengalaman profesional pada bidang akuntansi, manajemen keuangan, rekonsiliasi kas, dan administrasi perkantoran.
+          </p>
+        </div>
+
+        <!-- Education & Certifications -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="p-4 rounded-2xl bg-[#FFE3E2]/50 border border-[#FFC7C5]/40 space-y-1.5">
+            <h5 class="text-xs font-bold text-brand-dark">Pendidikan</h5>
+            <p class="text-[11px] text-brand-gray"><strong>Politeknik Negeri Jakarta (2022-2025)</strong><br>D3 Keuangan dan Perbankan (IPK 3.45)</p>
+            <p class="text-[11px] text-brand-gray"><strong>SMKN 49 Jakarta (2019-2022)</strong><br>Akuntansi</p>
+          </div>
+          <div class="p-4 rounded-2xl bg-[#FFE3E2]/50 border border-[#FFC7C5]/40 space-y-1.5">
+            <h5 class="text-xs font-bold text-brand-dark">Sertifikasi Resmi</h5>
+            <ul class="text-[11px] text-brand-gray space-y-1 list-disc list-inside">
+              <li>ACCURATE Professional (CAP) - 2024</li>
+              <li>Brevet Pajak A&B Terpadu - 2024</li>
+              <li>TOEFL LIA Pramuka - 2025</li>
+              <li>Workshop Audit ATLAS - 2024</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Work Summary -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-brand-primary-dark">Pengalaman Kerja Utama</h4>
+          <div class="text-xs text-brand-gray space-y-2">
+            <div class="p-3 rounded-xl bg-white border border-[#FFC7C5]/40">
+              <strong>Admin & Finance</strong> — PT Barazaki Kirana Persada (Jul 2025 - Sekarang)
+              <p class="text-[11px] text-brand-gray mt-0.5">Rekonsiliasi bank berkala, pencatatan transaksi masuk/keluar, invoice klien.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white border border-[#FFC7C5]/40">
+              <strong>Backoffice Operations</strong> — BSI KCP Jakarta Cikini (Des 2026 - Jun 2026)
+              <p class="text-[11px] text-brand-gray mt-0.5">Administrasi operasional cabang perbankan syariah, surat masuk/keluar.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white border border-[#FFC7C5]/40">
+              <strong>Accounting & Receptionist</strong> — Kementerian Perindustrian RI (2022, 2025)
+              <p class="text-[11px] text-brand-gray mt-0.5">DJP Online, bukti potong PPh 21 Final, resepsionis & pelayanan informasi tamu.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons in Modal -->
+        <div class="pt-4 border-t border-[#FFC7C5]/40 flex flex-wrap items-center justify-end gap-3">
+          <button onclick="window.print()" class="px-5 py-2.5 rounded-full border border-[#FFC7C5] text-brand-dark text-xs font-bold hover:bg-[#FFE3E2]/60 active:scale-95 transition-all flex items-center gap-1.5">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i> Cetak / Simpan PDF
+          </button>
+          <a href="https://wa.me/6289517362741" target="_blank" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#F98B88] to-[#AE615F] text-white text-xs font-bold shadow-soft hover:shadow-glow active:scale-95 transition-all flex items-center gap-1.5">
+            <i data-lucide="phone" class="w-3.5 h-3.5"></i> Rekrut / Hubungi Nur
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TOAST NOTIFICATION CONTAINER ================= -->
+  <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-full bg-brand-dark text-white text-xs font-semibold shadow-card-hover flex items-center gap-2 opacity-0 pointer-events-none translate-y-3 transition-all duration-400 ease-out">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toast-message">Alamat email berhasil disalin ke clipboard! 📋✨</span>
+  </div>
+
+  <!-- ================= FLOATING SCROLL TO TOP BUTTON ================= -->
+  <button id="scroll-top-btn" class="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-gradient-to-r from-[#F98B88] to-[#AE615F] text-white shadow-card-hover opacity-0 pointer-events-none hover:scale-110 active:scale-95 transition-all duration-300" aria-label="Kembali ke atas">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+  </button>
+
+  <!-- ================= HIGH-PERFORMANCE INTERACTIVE JAVASCRIPT ================= -->
+  <script id="about-flip-script">
+    (() => {
+      const button = document.getElementById('about-flip-button');
+      const pause = document.getElementById('about-flip-pause');
+      const front = document.getElementById('about-flip-front');
+      const back = document.getElementById('about-flip-back');
+      const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let visible = false;
+      let paused = false;
+      let timer;
+      function flip() {
+        const flipped = button.getAttribute('aria-pressed') !== 'true';
+        button.setAttribute('aria-pressed', String(flipped));
+        front.setAttribute('aria-hidden', String(flipped));
+        back.setAttribute('aria-hidden', String(!flipped));
+        button.setAttribute('aria-label', flipped
+          ? "Balik kartu untuk kembali ke foto Nur Sa'idah"
+          : 'Balik kartu untuk melihat ilustrasi tanaman');
+      }
+      function schedule() {
+        window.clearTimeout(timer);
+        if (!visible || paused || motion.matches || document.hidden ||
+            button.matches(':hover, :focus-within') || pause.matches(':focus')) return;
+        timer = window.setTimeout(() => {
+          flip();
+          schedule();
+        }, 30000);
+      }
+      function updatePause() {
+        pause.disabled = motion.matches;
+        pause.setAttribute('aria-pressed', String(paused));
+        pause.textContent = motion.matches ? 'Flip otomatis nonaktif (kurangi gerakan)'
+          : paused ? 'Lanjutkan flip otomatis · 30 detik' : 'Jeda flip otomatis · 30 detik';
+        schedule();
+      }
+      button.addEventListener('click', () => { flip(); schedule(); });
+      pause.addEventListener('click', () => { paused = !paused; updatePause(); });
+      [button, pause].forEach(control => {
+        ['mouseenter', 'mouseleave', 'focus', 'blur'].forEach(event => control.addEventListener(event, schedule));
+      });
+      document.addEventListener('visibilitychange', schedule);
+      motion.addEventListener('change', updatePause);
+      new IntersectionObserver(entries => {
+        visible = entries[0].isIntersecting;
+        schedule();
+      }, { threshold: 0.3 }).observe(button);
+      updatePause();
+    })();
+  </script>
+  <script id="accounting-math">
+    globalThis.AccountingMath = Object.freeze({
+      parseAmount(value, allowNegative = false) {
+        const raw = String(value).trim();
+        if (!(allowNegative ? /^-?\d{1,18}$/ : /^\d{1,18}$/).test(raw)) {
+          throw new Error('Gunakan angka rupiah bulat tanpa titik atau koma, maksimal 18 digit.');
+        }
+        return BigInt(raw);
+      },
+      compareBalances(cash, bank) {
+        return { difference: cash - bank };
+      },
+      trialBalance(entries) {
+        if (!entries.length) throw new Error('Tambahkan setidaknya satu entri.');
+        let debit = 0n;
+        let credit = 0n;
+        for (const entry of entries) {
+          if (entry.amount < 0n || !['debit', 'credit'].includes(entry.side)) {
+            throw new Error('Entri harus berupa debit atau kredit dengan nominal non-negatif.');
+          }
+          if (entry.side === 'debit') debit += entry.amount;
+          else credit += entry.amount;
+        }
+        return { debit, credit, difference: debit - credit };
+      },
+      profitLoss(revenue, expenses) {
+        if (revenue < 0n || expenses.some(amount => amount < 0n)) {
+          throw new Error('Pendapatan dan beban tidak boleh negatif.');
+        }
+        const totalExpenses = expenses.reduce((sum, amount) => sum + amount, 0n);
+        return { revenue, totalExpenses, net: revenue - totalExpenses };
+      },
+      depreciation(cost, residual, years) {
+        if (cost <= 0n || residual < 0n || residual > cost) {
+          throw new Error('Harga aset harus positif dan nilai residu berada antara 0 dan harga aset.');
+        }
+        if (!Number.isInteger(years) || years < 1 || years > 100) {
+          throw new Error('Masa manfaat harus 1–100 tahun bulat.');
+        }
+        return { base: cost - residual, years: BigInt(years) };
+      },
+      fractionCents(numerator, denominator) {
+        return (numerator * 100n + denominator / 2n) / denominator;
+      },
+      validDate(value) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || value.startsWith('0000')) return false;
+        const date = new Date(`${value}T00:00:00Z`);
+        return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
+      },
+      ledger(opening, entries, { from = '', to = '' } = {}) {
+        if ((from && !this.validDate(from)) || (to && !this.validDate(to)) || (from && to && from > to)) {
+          throw new Error('Periode buku kas tidak valid; tanggal awal tidak boleh setelah tanggal akhir.');
+        }
+        if (!entries.length) throw new Error('Tambahkan setidaknya satu transaksi.');
+        entries.forEach(entry => {
+          if (!this.validDate(entry.date) || !entry.description.trim() ||
+              !['in', 'out'].includes(entry.side) || entry.amount < 0n) {
+            throw new Error('Periksa tanggal, keterangan, jenis, dan nominal transaksi.');
+          }
+        });
+        const sorted = [...entries].sort((a, b) => a.date.localeCompare(b.date));
+        let balance = opening;
+        let openingBalance = opening;
+        let totalIncoming = 0n;
+        let totalOutgoing = 0n;
+        const allRows = sorted.map(entry => {
+          const included = (!from || entry.date >= from) && (!to || entry.date <= to);
+          if (entry.side === 'in') {
+            if (included) totalIncoming += entry.amount;
+            balance += entry.amount;
+          } else {
+            if (included) totalOutgoing += entry.amount;
+            balance -= entry.amount;
+          }
+          if (from && entry.date < from) openingBalance = balance;
+          return { ...entry, balance };
+        });
+        const rows = allRows.filter(row => (!from || row.date >= from) && (!to || row.date <= to));
+        const seen = new Set();
+        let duplicateCount = 0;
+        rows.forEach(row => {
+          const key = JSON.stringify([row.date, row.description.trim().toLowerCase(), row.side, String(row.amount)]);
+          if (seen.has(key)) duplicateCount++;
+          seen.add(key);
+        });
+        return { rows, totalIncoming, totalOutgoing, openingBalance, duplicateCount,
+          finalBalance: rows.length ? rows[rows.length - 1].balance : openingBalance };
+      },
+      parseQuantity(value) {
+        const raw = String(value).trim().replace(',', '.');
+        if (!/^\d{1,6}(?:\.\d{1,3})?$/.test(raw)) throw new Error('Kuantitas maksimal 6 digit dan 3 angka desimal.');
+        const [whole, fraction = ''] = raw.split('.');
+        const scaled = BigInt(whole) * 1000n + BigInt(fraction.padEnd(3, '0'));
+        if (scaled <= 0n) throw new Error('Kuantitas harus lebih dari 0.');
+        return scaled;
+      },
+      parsePercent(value) {
+        const raw = String(value).trim().replace(',', '.');
+        if (!/^\d{1,3}(?:\.\d{1,2})?$/.test(raw)) throw new Error('Persentase harus 0–100, maksimal 2 desimal.');
+        const [whole, fraction = ''] = raw.split('.');
+        const rate = BigInt(whole) * 100n + BigInt(fraction.padEnd(2, '0'));
+        if (rate > 10000n) throw new Error('Persentase tidak boleh lebih dari 100%.');
+        return rate;
+      },
+      receivableStatus(balance, paid, due, asOf) {
+        if (!this.validDate(due) || !this.validDate(asOf)) throw new Error('Tanggal status piutang tidak valid.');
+        const days = Math.round((new Date(`${asOf}T00:00:00Z`) - new Date(`${due}T00:00:00Z`)) / 86400000);
+        return {
+          payment: balance === 0n ? 'Lunas' : paid > 0n ? 'Dibayar sebagian' : 'Belum dibayar',
+          daysLate: balance === 0n ? 0 : Math.max(0, days)
+        };
+      },
+      invoice(items, { discount = 0n, discountRate = null, paid = 0n, taxMode = 'none' } = {}) {
+        if (!['none', 'effective11', 'full12'].includes(taxMode)) throw new Error('Skema PPN tidak dikenali.');
+        if (!items.length) throw new Error('Tambahkan setidaknya satu item invoice.');
+        const rows = items.map(item => {
+          const quantityMilli = item.quantityMilli ?? (typeof item.quantity === 'bigint' ? item.quantity * 1000n : 0n);
+          if (!item.description.trim() || typeof quantityMilli !== 'bigint' ||
+              quantityMilli < 1n || quantityMilli > 999999999n || item.price < 0n) {
+            throw new Error('Periksa keterangan, kuantitas positif, dan harga non-negatif.');
+          }
+          return { ...item, quantityMilli, total: (quantityMilli * item.price + 500n) / 1000n };
+        });
+        const subtotal = rows.reduce((sum, row) => sum + row.total, 0n);
+        if (discountRate !== null) {
+          if (discount !== 0n || discountRate < 0n || discountRate > 10000n) {
+            throw new Error('Pilih satu jenis diskon; persen harus 0–100%.');
+          }
+          discount = (subtotal * discountRate + 5000n) / 10000n;
+        }
+        if (discount < 0n || discount > subtotal) throw new Error('Diskon tidak boleh melebihi subtotal.');
+        const net = subtotal - discount;
+        // Compute from the exact fraction, without rounding the 11/12 DPP first.
+        const rate = taxMode === 'effective11' ? 11n : taxMode === 'full12' ? 12n : 0n;
+        const vat = (net * rate + 50n) / 100n;
+        const total = net + vat;
+        if (paid < 0n || paid > total) throw new Error('Pembayaran tidak boleh melebihi total tagihan.');
+        return { rows, subtotal, discount, net, vat, taxMode,
+          dppNumerator: taxMode === 'effective11' ? net * 11n : net,
+          dppDenominator: taxMode === 'effective11' ? 12n : 1n,
+          total, paid, balance: total - paid };
+      },
+      rupiahWords(value) {
+        if (typeof value !== 'bigint') throw new Error('Terbilang memerlukan rupiah bulat.');
+        const negative = value < 0n;
+        let remaining = negative ? -value : value;
+        const words = ['', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan', 'sepuluh', 'sebelas'];
+        const scales = ['', 'ribu', 'juta', 'miliar', 'triliun', 'kuadriliun', 'kuintiliun', 'sekstiliun', 'septiliun', 'oktiliun'];
+        function chunk(n) {
+          if (n < 12) return words[n];
+          if (n < 20) return `${words[n - 10]} belas`;
+          if (n < 100) return `${words[Math.floor(n / 10)]} puluh ${chunk(n % 10)}`.trim();
+          if (n < 200) return `seratus ${chunk(n - 100)}`.trim();
+          return `${words[Math.floor(n / 100)]} ratus ${chunk(n % 100)}`.trim();
+        }
+        const groups = [];
+        let index = 0;
+        while (remaining > 0n) {
+          if (index >= scales.length) throw new Error('Nominal terlalu besar untuk terbilang.');
+          const group = Number(remaining % 1000n);
+          if (group) groups.unshift(index === 1 && group === 1 ? 'seribu' : `${chunk(group)} ${scales[index]}`.trim());
+          remaining /= 1000n;
+          index++;
+        }
+        const result = `${negative ? 'minus ' : ''}${groups.join(' ') || 'nol'} rupiah`;
+        return result[0].toUpperCase() + result.slice(1);
+      },
+      csvCell(value) {
+        let text = String(value);
+        if (typeof value === 'string' && /^[\s]*[=+\-@]/.test(text)) text = "'" + text;
+        return '"' + text.replaceAll('"', '""') + '"';
+      }
+    });
+  </script>
+  <script>
+    // 1. Initialize Lucide Icons
+    lucide.createIcons();
+
+    // 2. Mobile Menu Toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
+
+    // 3. Ultra-Smooth Scroll-Reveal via IntersectionObserver (60fps Optimized)
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '0px 0px -50px 0px',
+      threshold: 0.12
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // 4. Throttled ScrollSpy & Scroll-to-Top (requestAnimationFrame)
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const scrollTopBtn = document.getElementById('scroll-top-btn');
+    let isScrolling = false;
+
+    function handleScrollPerformance() {
+      const scrollY = window.pageYOffset;
+
+      // Update Active Navigation
+      let currentSection = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 130;
+        const height = section.offsetHeight;
+        if (scrollY >= top && scrollY < top + height) {
+          currentSection = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+          link.classList.add('active');
+        }
+      });
+
+      // Scroll to Top Button
+      if (scrollY > 320) {
+        scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+        scrollTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+      } else {
+        scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
+        scrollTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+      }
+
+      isScrolling = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!isScrolling) {
+        window.requestAnimationFrame(handleScrollPerformance);
+        isScrolling = true;
+      }
+    }, { passive: true });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // 5. Experience Filtering Tabs with Smooth Transitions
+    function filterExperience(category) {
+      const items = document.querySelectorAll('.exp-item');
+      const tabs = document.querySelectorAll('.exp-tab');
+
+      tabs.forEach(tab => {
+        if (tab.getAttribute('data-filter') === category) {
+          tab.classList.add('bg-brand-primary', 'text-white', 'shadow-xs');
+          tab.classList.remove('text-brand-primary-dark');
+        } else {
+          tab.classList.remove('bg-brand-primary', 'text-white', 'shadow-xs');
+          tab.classList.add('text-brand-primary-dark');
+        }
+      });
+
+      items.forEach(item => {
+        if (category === 'all' || item.classList.contains(`exp-${category}`)) {
+          item.style.display = 'flex';
+          setTimeout(() => {
+            item.style.opacity = '1';
+            item.style.transform = 'translate3d(0, 0, 0)';
+          }, 30);
+        } else {
+          item.style.opacity = '0';
+          item.style.transform = 'translate3d(0, 15px, 0)';
+          setTimeout(() => {
+            item.style.display = 'none';
+          }, 250);
+        }
+      });
+    }
+
+    // Whole-rupiah arithmetic stays exact even for balances above Number.MAX_SAFE_INTEGER.
+    function runReconciliationSim() {
+      const resultBox = document.getElementById('reconcile-result');
+      const fields = [
+        document.getElementById('cash-balance'),
+        document.getElementById('bank-balance')
+      ];
+      fields.forEach(field => field.removeAttribute('aria-invalid'));
+      const invalidField = fields.find(field => !/^-?\d{1,18}$/.test(field.value.trim()));
+      if (invalidField) {
+        invalidField.setAttribute('aria-invalid', 'true');
+        const label = invalidField.id === 'cash-balance' ? 'Saldo buku kas' : 'Saldo rekening bank';
+        resultBox.textContent = `${label} harus diisi dengan angka rupiah bulat tanpa titik atau koma (maksimal 18 digit).`;
+        invalidField.focus();
+        return;
+      }
+
+      const cash = AccountingMath.parseAmount(fields[0].value, true);
+      const bank = AccountingMath.parseAmount(fields[1].value, true);
+      const { difference } = AccountingMath.compareBalances(cash, bank);
+      const rupiah = new Intl.NumberFormat('id-ID', {
+        style: 'currency', currency: 'IDR', maximumFractionDigits: 0
+      });
+      if (difference === 0n) {
+        resultBox.textContent = `Saldo cocok. Buku kas dan rekening bank masing-masing ${rupiah.format(cash)}. Selisih Rp 0. Kesamaan saldo belum membuktikan semua transaksi sudah sesuai.`;
+      } else {
+        const amount = difference < 0n ? -difference : difference;
+        const higher = difference > 0n ? 'Buku kas lebih besar' : 'Rekening bank lebih besar';
+        resultBox.textContent = `Saldo berbeda. Buku kas: ${rupiah.format(cash)}. Rekening bank: ${rupiah.format(bank)}. Selisih: ${rupiah.format(amount)} (${higher}). Periksa transaksi dan penyesuaian yang belum tercatat.`;
+      }
+    }
+
+    document.getElementById('reconcile-form').addEventListener('submit', event => {
+      event.preventDefault();
+      runReconciliationSim();
+    });
+    document.getElementById('reconcile-form').addEventListener('input', () => {
+      document.querySelectorAll('#reconcile-form input').forEach(field => field.removeAttribute('aria-invalid'));
+      document.getElementById('reconcile-result').textContent = 'Saldo diubah. Pilih Bandingkan Saldo untuk menghitung ulang.';
+    });
+
+    document.querySelectorAll('#balance-comparison form').forEach(form => {
+      const editor = document.createElement('div');
+      editor.className = 'tool-editor';
+      const output = document.createElement('div');
+      output.className = 'tool-output';
+      output.setAttribute('role', 'region');
+      output.setAttribute('aria-label', 'Hasil perhitungan dan pratinjau');
+      output.tabIndex = 0;
+      [...form.children].forEach(child => {
+        const isOutput = child.getAttribute('role') === 'status' || child.hasAttribute('data-preview');
+        (isOutput ? output : editor).append(child);
+      });
+      const submit = editor.querySelector('[type="submit"]');
+      const actions = submit.parentElement === editor ? document.createElement('div') : submit.parentElement;
+      if (!actions.contains(submit)) actions.append(submit);
+      actions.classList.add('tool-actions');
+      editor.append(actions);
+      form.append(editor, output);
+    });
+
+    const toolTabs = [...document.querySelectorAll('#balance-comparison [role="tab"]')];
+    function selectTool(tab) {
+      toolTabs.forEach(item => {
+        const selected = item === tab;
+        item.setAttribute('aria-selected', String(selected));
+        item.tabIndex = selected ? 0 : -1;
+        document.getElementById(item.getAttribute('aria-controls')).hidden = !selected;
+      });
+    }
+    toolTabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectTool(tab));
+      tab.addEventListener('keydown', event => {
+        let next;
+        if (event.key === 'ArrowRight') next = (index + 1) % toolTabs.length;
+        if (event.key === 'ArrowLeft') next = (index - 1 + toolTabs.length) % toolTabs.length;
+        if (event.key === 'Home') next = 0;
+        if (event.key === 'End') next = toolTabs.length - 1;
+        if (next === undefined) return;
+        event.preventDefault();
+        selectTool(toolTabs[next]);
+        toolTabs[next].focus();
+      });
+    });
+
+    const toolCurrency = new Intl.NumberFormat('id-ID', {
+      style: 'currency', currency: 'IDR', maximumFractionDigits: 0
+    });
+    const money = value => toolCurrency.format(value);
+    const absolute = value => value < 0n ? -value : value;
+
+    let ledgerExportRows = null;
+    function invalidateTool(form) {
+      const result = form.querySelector('[role="status"]');
+      // Once results are invalid, more keystrokes need no repeated DOM cleanup.
+      if (result.dataset.state === 'pending') return;
+      form.querySelectorAll('[aria-invalid]').forEach(field => field.removeAttribute('aria-invalid'));
+      result.dataset.state = 'pending';
+      result.textContent = 'Input berubah. Pilih tombol hitung untuk memperbarui hasil.';
+      form.querySelectorAll('[data-preview]').forEach(preview => {
+        preview.hidden = true;
+        preview.replaceChildren();
+      });
+      const printButton = form.querySelector('#print-invoice');
+      if (printButton) printButton.disabled = true;
+      if (form.id === 'ledger-form') {
+        ledgerExportRows = null;
+        document.getElementById('export-ledger').disabled = true;
+        document.getElementById('print-ledger').disabled = true;
+      }
+    }
+    function invalidInput(field, message) {
+      const error = new Error(message);
+      error.field = field;
+      throw error;
+    }
+    function readAmount(field) {
+      try {
+        return AccountingMath.parseAmount(field.value);
+      } catch (error) {
+        const label = field.labels[0].textContent.trim();
+        invalidInput(field, `${label}: isi dengan rupiah bulat non-negatif tanpa titik atau koma (maksimal 18 digit).`);
+      }
+    }
+    function showToolResult(result, title, values, note) {
+      result.replaceChildren();
+      result.dataset.state = 'calculated';
+      const heading = document.createElement('p');
+      heading.className = 'font-bold text-brand-dark';
+      heading.textContent = title;
+      const list = document.createElement('dl');
+      list.className = 'result-values';
+      values.forEach(([label, amount]) => {
+        const group = document.createElement('div');
+        const term = document.createElement('dt');
+        const value = document.createElement('dd');
+        term.textContent = label;
+        value.textContent = amount;
+        group.append(term, value);
+        list.append(group);
+      });
+      const help = document.createElement('p');
+      help.textContent = note;
+      result.append(heading, list, help);
+    }
+    function bindCalculator(formID, calculate) {
+      const form = document.getElementById(formID);
+      const result = form.querySelector('[role="status"]');
+      form.addEventListener('input', () => invalidateTool(form));
+      form.addEventListener('change', () => invalidateTool(form));
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        invalidateTool(form);
+        try {
+          calculate(form, result);
+        } catch (error) {
+          result.dataset.state = 'error';
+          result.textContent = error.message;
+          if (error.field) {
+            error.field.setAttribute('aria-invalid', 'true');
+            error.field.focus();
+          }
+        }
+      });
+    }
+
+    let toolRowID = 0;
+    function addToolRow(kind, side = 'debit', focus = true) {
+      const journal = kind === 'journal';
+      const container = document.getElementById(journal ? 'journal-rows' : 'expense-rows');
+      const form = container.closest('form');
+      const row = document.createElement('fieldset');
+      const id = `accounting-row-${++toolRowID}`;
+      row.className = 'rounded-2xl border border-brand-border p-4 min-w-0';
+      row.innerHTML = `
+        <legend class="px-2 text-sm font-semibold text-brand-gray">${journal ? 'Entri' : 'Beban'} ${toolRowID}</legend>
+        <div class="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] items-end gap-3">
+          <div class="min-w-0">
+            <label for="${id}-detail">${journal ? 'Sisi pencatatan' : 'Nama beban (opsional)'}</label>
+            ${journal
+              ? `<select id="${id}-detail" class="accounting-input cursor-pointer" data-side><option value="debit">Debit</option><option value="credit">Kredit</option></select>`
+              : `<input id="${id}-detail" type="text" maxlength="80" class="accounting-input" placeholder="Contoh: Sewa kantor">`}
+          </div>
+          <div class="min-w-0">
+            <label for="${id}-amount">Nominal (Rp)</label>
+            <input id="${id}-amount" type="text" inputmode="numeric" maxlength="18" class="accounting-input" placeholder="Masukkan nominal" data-amount required aria-describedby="tools-money-help ${journal ? 'journal' : 'profit'}-result">
+          </div>
+          <button type="button" class="tool-button" data-remove aria-label="Hapus ${journal ? 'entri' : 'beban'} ${toolRowID}">Hapus</button>
+        </div>`;
+      container.append(row);
+      if (journal) row.querySelector('[data-side]').value = side;
+      const updateRemoveButtons = () => {
+        [...container.children].forEach((item, index) => {
+          const label = `${journal ? 'Entri' : 'Beban'} ${index + 1}`;
+          item.querySelector('legend').textContent = label;
+          const button = item.querySelector('[data-remove]');
+          button.setAttribute('aria-label', `Hapus ${label.toLowerCase()}`);
+          button.disabled = container.children.length === 1;
+        });
+      };
+      row.querySelector('[data-remove]').addEventListener('click', () => {
+        if (container.children.length === 1) return;
+        row.remove();
+        updateRemoveButtons();
+        invalidateTool(form);
+        document.getElementById(journal ? 'add-journal' : 'add-expense').focus();
+      });
+      updateRemoveButtons();
+      if (focus) {
+        invalidateTool(form);
+        row.querySelector('[data-amount]').focus();
+      }
+    }
+    addToolRow('journal', 'debit', false);
+    addToolRow('journal', 'credit', false);
+    addToolRow('expense', 'debit', false);
+    document.getElementById('add-journal').addEventListener('click', () => addToolRow('journal'));
+    document.getElementById('add-expense').addEventListener('click', () => addToolRow('expense'));
+
+    bindCalculator('journal-form', (form, result) => {
+      const entries = [...form.querySelectorAll('fieldset')].map(row => ({
+        side: row.querySelector('[data-side]').value,
+        amount: readAmount(row.querySelector('[data-amount]'))
+      }));
+      const { debit, credit, difference } = AccountingMath.trialBalance(entries);
+      showToolResult(result, difference === 0n ? 'Debit dan kredit seimbang' : 'Debit dan kredit belum seimbang', [
+        ['Total debit', money(debit)], ['Total kredit', money(credit)], ['Selisih', money(absolute(difference))]
+      ], difference === 0n
+        ? 'Total yang seimbang tidak menjamin akun atau pencatatan transaksinya sudah benar.'
+        : `${difference > 0n ? 'Debit' : 'Kredit'} lebih besar. Periksa nominal dan sisi pencatatan setiap entri.`);
+    });
+    bindCalculator('profit-form', (form, result) => {
+      const revenue = readAmount(document.getElementById('revenue-amount'));
+      const expenses = [...form.querySelectorAll('[data-amount]')].map(readAmount);
+      const { totalExpenses, net } = AccountingMath.profitLoss(revenue, expenses);
+      showToolResult(result, net > 0n ? 'Hasil: laba' : net < 0n ? 'Hasil: rugi' : 'Hasil: impas', [
+        ['Pendapatan', money(revenue)], ['Total beban', money(totalExpenses)],
+        [net < 0n ? 'Rugi' : 'Laba / rugi', money(absolute(net))]
+      ], 'Ringkasan sederhana berdasarkan input, bukan laporan keuangan lengkap. Pajak dan penyesuaian hanya ikut dihitung jika dimasukkan sebagai beban.');
+    });
+    bindCalculator('asset-form', (form, result) => {
+      const costField = document.getElementById('asset-cost');
+      const residualField = document.getElementById('asset-residual');
+      const yearsField = document.getElementById('asset-years');
+      const cost = readAmount(costField);
+      const residual = readAmount(residualField);
+      if (cost === 0n) invalidInput(costField, 'Harga perolehan harus lebih dari 0.');
+      if (residual > cost) invalidInput(residualField, 'Nilai residu tidak boleh melebihi harga perolehan.');
+      const rawYears = yearsField.value.trim();
+      if (!/^\d{1,3}$/.test(rawYears) || Number(rawYears) < 1 || Number(rawYears) > 100) {
+        invalidInput(yearsField, 'Masa manfaat harus diisi 1–100 tahun bulat.');
+      }
+      const { base, years } = AccountingMath.depreciation(cost, residual, Number(rawYears));
+      const fractionMoney = denominator => {
+        const cents = AccountingMath.fractionCents(base, denominator);
+        return `Rp ${new Intl.NumberFormat('id-ID').format(cents / 100n)},${String(cents % 100n).padStart(2, '0')}`;
+      };
+      showToolResult(result, 'Penyusutan metode garis lurus', [
+        ['Dasar penyusutan', money(base)], ['Per tahun', fractionMoney(years)], ['Per bulan', fractionMoney(years * 12n)]
+      ], 'Nilai per tahun dan bulan ditampilkan dengan pembulatan dua desimal. Total dasar penyusutan tetap harga perolehan dikurangi nilai residu; ini bukan perhitungan pajak atau prorata.');
+    });
+
+    function readText(field) {
+      const value = field.value.trim();
+      if (!value) invalidInput(field, `${field.labels[0].textContent.trim()} wajib diisi.`);
+      return value;
+    }
+    function readDate(field) {
+      if (!AccountingMath.validDate(field.value)) {
+        invalidInput(field, `${field.labels[0].textContent.trim()} harus berupa tanggal yang valid.`);
+      }
+      return field.value;
+    }
+    const displayDate = value => value.split('-').reverse().join('/');
+    function textElement(tag, value, className = '') {
+      const element = document.createElement(tag);
+      element.textContent = value;
+      element.className = className;
+      return element;
+    }
+    function makeToolTable(caption, headers, rows, numericColumns) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'tool-table-wrap';
+      wrapper.tabIndex = 0;
+      wrapper.setAttribute('role', 'region');
+      wrapper.setAttribute('aria-label', `${caption}. Geser horizontal bila diperlukan.`);
+      const table = document.createElement('table');
+      table.className = 'tool-table';
+      table.append(textElement('caption', caption));
+      const head = document.createElement('thead');
+      const headRow = document.createElement('tr');
+      headers.forEach((label, index) => {
+        const cell = textElement('th', label, numericColumns.includes(index) ? 'numeric' : '');
+        cell.scope = 'col';
+        headRow.append(cell);
+      });
+      head.append(headRow);
+      const body = document.createElement('tbody');
+      rows.forEach(values => {
+        const row = document.createElement('tr');
+        values.forEach((value, index) => {
+          row.append(textElement('td', value, numericColumns.includes(index) ? 'numeric' : ''));
+        });
+        body.append(row);
+      });
+      table.append(head, body);
+      wrapper.append(table);
+      return wrapper;
+    }
+    function reportHeader(title, reference, meta) {
+      const header = document.createElement('header');
+      header.className = 'report-header';
+      const identity = document.createElement('div');
+      identity.append(textElement('p', 'ACCOUNTING MINI TOOLS · DEMO', 'report-kicker'), textElement('h3', title, 'report-title'));
+      const details = document.createElement('div');
+      details.className = 'report-meta';
+      [reference, ...meta].forEach(line => details.append(textElement('p', line)));
+      header.append(identity, details);
+      return header;
+    }
+    function reportParty(label, value) {
+      const group = document.createElement('div');
+      group.append(textElement('p', label, 'report-label'), textElement('p', value, 'font-semibold'));
+      return group;
+    }
+    function reportSummary(values) {
+      const list = document.createElement('dl');
+      list.className = 'report-summary';
+      values.forEach(([label, value, emphasis = false]) => {
+        const row = document.createElement('div');
+        row.className = `report-total-row${emphasis ? ' is-total' : ''}`;
+        row.append(textElement('dt', label), textElement('dd', value));
+        list.append(row);
+      });
+      return list;
+    }
+    function addRecordRow(kind, focus = true) {
+      const ledger = kind === 'ledger';
+      const container = document.getElementById(`${kind}-rows`);
+      const form = container.closest('form');
+      const row = document.createElement('fieldset');
+      const id = `accounting-record-${++toolRowID}`;
+      row.className = 'rounded-2xl border border-brand-border p-4 min-w-0';
+      const resultID = `${kind}-result`;
+      row.innerHTML = `
+        <legend class="px-2 text-sm font-semibold text-brand-gray"></legend>
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+          ${ledger ? `
+          <div class="min-w-0"><label for="${id}-date">Tanggal</label>
+            <input id="${id}-date" type="date" class="accounting-input" data-date required aria-describedby="${resultID}"></div>`
+          : ''}
+          <div class="min-w-0 ${ledger ? '' : 'xl:col-span-2'}">
+            <label for="${id}-description">${ledger ? 'Keterangan transaksi' : 'Barang / jasa'}</label>
+            <input id="${id}-description" type="text" maxlength="120" class="accounting-input" data-description required placeholder="${ledger ? 'Keterangan transaksi' : 'Rincian barang atau jasa'}" aria-describedby="${resultID}">
+          </div>
+          ${ledger ? `
+          <div class="min-w-0"><label for="${id}-side">Jenis transaksi</label>
+              <select id="${id}-side" class="accounting-input cursor-pointer" data-side><option value="in">Uang masuk</option><option value="out">Uang keluar</option></select></div>
+          <div class="min-w-0"><label for="${id}-category">Kategori</label><select id="${id}-category" class="accounting-input cursor-pointer" data-category>
+            <option>Operasional</option><option>Penjualan</option><option>Modal</option><option>Piutang</option><option>Utang</option><option>Aset</option><option>Prive</option><option>Lainnya</option>
+          </select></div>`
+          : `
+          <div class="min-w-0"><label for="${id}-quantity">Kuantitas</label>
+            <input id="${id}-quantity" type="text" inputmode="decimal" maxlength="10" class="accounting-input" data-quantity required placeholder="Contoh: 1,5" aria-describedby="${resultID}"></div>`}
+          <div class="min-w-0"><label for="${id}-amount">${ledger ? 'Nominal' : 'Harga satuan sebelum PPN'} (Rp)</label>
+            <input id="${id}-amount" type="text" inputmode="numeric" maxlength="18" class="accounting-input" data-amount required placeholder="Masukkan nominal" aria-describedby="tools-money-help ${resultID}"></div>
+          ${ledger ? '' : `<div class="min-w-0"><label for="${id}-unit">Unit / satuan</label><input id="${id}-unit" type="text" maxlength="20" class="accounting-input" data-unit value="unit" placeholder="Contoh: jam / paket"></div>`}
+        </div>
+        <div class="mt-3 flex justify-end"><button type="button" class="tool-button" data-remove>Hapus</button></div>`;
+      container.append(row);
+      const renumber = () => [...container.children].forEach((item, index) => {
+        const label = `${ledger ? 'Transaksi' : 'Item'} ${index + 1}`;
+        item.querySelector('legend').textContent = label;
+        const button = item.querySelector('[data-remove]');
+        button.disabled = container.children.length === 1;
+        button.setAttribute('aria-label', `Hapus ${label.toLowerCase()}`);
+      });
+      row.querySelector('[data-remove]').addEventListener('click', () => {
+        if (container.children.length === 1) return;
+        row.remove();
+        renumber();
+        invalidateTool(form);
+        document.getElementById(`add-${kind}`).focus();
+      });
+      renumber();
+      if (focus) {
+        invalidateTool(form);
+        row.querySelector('input').focus();
+      }
+    }
+    addRecordRow('ledger', false);
+    addRecordRow('invoice', false);
+    document.getElementById('add-ledger').addEventListener('click', () => addRecordRow('ledger'));
+    document.getElementById('add-invoice').addEventListener('click', () => addRecordRow('invoice'));
+
+    bindCalculator('ledger-form', (form, result) => {
+      const openingField = document.getElementById('ledger-opening');
+      let opening;
+      try {
+        opening = AccountingMath.parseAmount(openingField.value, true);
+      } catch (error) {
+        invalidInput(openingField, 'Saldo awal harus rupiah bulat tanpa titik atau koma, maksimal 18 digit; saldo negatif diperbolehkan.');
+      }
+      const entries = [...form.querySelectorAll('fieldset')].map(row => ({
+        date: readDate(row.querySelector('[data-date]')),
+        description: readText(row.querySelector('[data-description]')),
+        category: row.querySelector('[data-category]').value,
+        side: row.querySelector('[data-side]').value,
+        amount: readAmount(row.querySelector('[data-amount]'))
+      }));
+      const fromField = document.getElementById('ledger-from');
+      const toField = document.getElementById('ledger-to');
+      const from = fromField.value ? readDate(fromField) : '';
+      const to = toField.value ? readDate(toField) : '';
+      if (from && to && from > to) invalidInput(toField, 'Tanggal akhir tidak boleh sebelum tanggal awal.');
+      const ledger = AccountingMath.ledger(opening, entries, { from, to });
+      showToolResult(result, ledger.rows.length ? 'Buku kas demo siap' : 'Tidak ada transaksi dalam periode ini', [
+        ['Uang masuk', money(ledger.totalIncoming)], ['Uang keluar', money(ledger.totalOutgoing)],
+        ['Saldo akhir', money(ledger.finalBalance)]
+      ], `Saldo awal periode: ${money(ledger.openingBalance)}. Ini saldo kas, bukan laba usaha. ${ledger.duplicateCount ? `Periksa ${ledger.duplicateCount} kemungkinan transaksi duplikat (tetap dihitung, tidak dihapus otomatis).` : ''}`);
+      const preview = document.getElementById('ledger-preview');
+      preview.append(reportHeader('BUKU KAS', 'Laporan simulasi', [`Periode: ${from ? displayDate(from) : 'Awal pencatatan'} s.d. ${to ? displayDate(to) : 'Akhir pencatatan'}`]));
+      preview.append(makeToolTable('Buku kas demo dan saldo berjalan', ['Tanggal', 'Keterangan', 'Kategori', 'Masuk', 'Keluar', 'Saldo'], ledger.rows.map(row => [
+        displayDate(row.date), row.description, row.category,
+        row.side === 'in' ? money(row.amount) : '–',
+        row.side === 'out' ? money(row.amount) : '–', money(row.balance)
+      ]), [3, 4, 5]));
+      preview.append(reportSummary([
+        ['Saldo awal periode', money(ledger.openingBalance)],
+        ['Total masuk', money(ledger.totalIncoming)], ['Total keluar', money(ledger.totalOutgoing)],
+        ['Saldo akhir', money(ledger.finalBalance), true]
+      ]), textElement('p', `DEMO. Saldo awal + uang masuk − uang keluar = saldo akhir. ${ledger.duplicateCount ? `${ledger.duplicateCount} kemungkinan duplikat tetap termasuk dalam total; perlu pemeriksaan.` : 'Buku kas ini bukan laporan laba rugi atau jurnal berpasangan.'}`, 'report-footer'));
+      preview.hidden = false;
+      document.getElementById('print-ledger').disabled = false;
+      ledgerExportRows = [
+        ['BUKU KAS DEMO', from || 'Semua tanggal', to || 'Semua tanggal'],
+        ['Saldo awal periode', ledger.openingBalance],
+        ['Tanggal', 'Keterangan', 'Kategori', 'Masuk', 'Keluar', 'Saldo'],
+        ...ledger.rows.map(row => [row.date, row.description, row.category, row.side === 'in' ? row.amount : 0n, row.side === 'out' ? row.amount : 0n, row.balance]),
+        ['Total masuk', ledger.totalIncoming], ['Total keluar', ledger.totalOutgoing], ['Saldo akhir', ledger.finalBalance]
+      ];
+      document.getElementById('export-ledger').disabled = false;
+    });
+    bindCalculator('invoice-form', (form, result) => {
+      const seller = readText(document.getElementById('invoice-seller'));
+      const client = readText(document.getElementById('invoice-client'));
+      const number = readText(document.getElementById('invoice-number'));
+      const date = readDate(document.getElementById('invoice-date'));
+      const dueField = document.getElementById('invoice-due');
+      const due = readDate(dueField);
+      if (due < date) invalidInput(dueField, 'Jatuh tempo tidak boleh sebelum tanggal terbit.');
+      const asOfField = document.getElementById('invoice-asof');
+      const asOf = readDate(asOfField);
+      if (asOf < date) invalidInput(asOfField, 'Tanggal status pembayaran tidak boleh sebelum tanggal terbit invoice.');
+      const items = [...form.querySelectorAll('fieldset')].map(row => {
+        const description = readText(row.querySelector('[data-description]'));
+        const quantityField = row.querySelector('[data-quantity]');
+        const rawQuantity = quantityField.value.trim();
+        let quantityMilli;
+        try { quantityMilli = AccountingMath.parseQuantity(rawQuantity); }
+        catch (error) { invalidInput(quantityField, 'Kuantitas harus positif, maksimal 999999,999 (3 desimal).'); }
+        return { description, quantityMilli, unit: row.querySelector('[data-unit]').value.trim() || 'unit', price: readAmount(row.querySelector('[data-amount]')) };
+      });
+      const discountField = document.getElementById('invoice-discount');
+      const paidField = document.getElementById('invoice-paid');
+      const taxMode = document.getElementById('invoice-vat').value;
+      const percentMode = document.getElementById('invoice-discount-mode').value === 'percent';
+      let discount = 0n;
+      let discountRate = null;
+      if (percentMode) {
+        try { discountRate = AccountingMath.parsePercent(discountField.value); }
+        catch (error) { invalidInput(discountField, 'Diskon persen harus 0–100%, maksimal 2 desimal.'); }
+      } else {
+        discount = readAmount(discountField);
+      }
+      const paid = readAmount(paidField);
+      const subtotal = AccountingMath.invoice(items).subtotal;
+      if (discount > subtotal) invalidInput(discountField, 'Diskon tidak boleh melebihi subtotal.');
+      const discounted = AccountingMath.invoice(items, { discount, discountRate, taxMode });
+      if (paid > discounted.total) invalidInput(paidField, 'Pembayaran tidak boleh melebihi total setelah diskon dan PPN.');
+      const invoice = AccountingMath.invoice(items, { discount, discountRate, taxMode, paid });
+      const aging = AccountingMath.receivableStatus(invoice.balance, paid, due, asOf);
+      const status = `${aging.payment}${aging.daysLate ? ` · terlambat ${aging.daysLate} hari` : ''}`;
+      showToolResult(result, `Invoice demo: ${status}`, [['Total setelah diskon', money(invoice.total)], ['Sudah dibayar', money(paid)], ['Sisa tagihan', money(invoice.balance)]],
+        'Pratinjau demo, bukan faktur pajak. Periksa rincian sebelum mencetak.');
+      const preview = document.getElementById('invoice-preview');
+      const optionalValue = id => document.getElementById(id).value.trim();
+      const sellerDetails = optionalValue('invoice-seller-details');
+      const clientDetails = optionalValue('invoice-client-details');
+      const po = optionalValue('invoice-po');
+      const poDateField = document.getElementById('invoice-po-date');
+      const poDate = poDateField.value ? readDate(poDateField) : '';
+      const paymentMethod = optionalValue('invoice-payment-method');
+      const signatory = optionalValue('invoice-signatory');
+      const signatoryRole = optionalValue('invoice-signatory-role');
+      const header = document.createElement('header');
+      header.className = 'invoice-document-head';
+      const issuer = document.createElement('div');
+      issuer.className = 'invoice-wordmark';
+      issuer.append(textElement('p', seller), textElement('span', 'CONTOH DEMO', 'invoice-demo-label'));
+      const title = document.createElement('div');
+      title.className = 'invoice-document-title';
+      title.append(textElement('h3', 'INVOICE'), textElement('p', number));
+      header.append(issuer, title);
+      preview.append(header);
+      const parties = document.createElement('div');
+      parties.className = 'invoice-addressee';
+      const recipient = document.createElement('section');
+      recipient.className = 'invoice-recipient';
+      recipient.append(textElement('p', 'Kepada Yth.', 'invoice-small-label'), textElement('p', client, 'invoice-client-name'));
+      if (clientDetails) recipient.append(textElement('p', clientDetails, 'invoice-multiline'));
+      const metadata = document.createElement('dl');
+      metadata.className = 'invoice-metadata';
+      const metaRows = [['Tanggal', displayDate(date)], ['Jatuh tempo', displayDate(due)]];
+      if (po) metaRows.push(['PO / WO No.', po]);
+      if (poDate) metaRows.push(['Tanggal PO / WO', displayDate(poDate)]);
+      if (paymentMethod) metaRows.push(['Pembayaran', paymentMethod]);
+      metaRows.push([`Status per ${displayDate(asOf)}`, status]);
+      metaRows.forEach(([label, value]) => {
+        const row = document.createElement('div');
+        row.append(textElement('dt', label), textElement('dd', value));
+        metadata.append(row);
+      });
+      parties.append(recipient, metadata);
+      preview.append(parties);
+      const tableWrap = makeToolTable('Rincian invoice (harga satuan sebelum PPN)', ['No.', 'Deskripsi', 'Kuantitas', 'Unit', 'Harga / unit', 'Jumlah'],
+        invoice.rows.map((row, index) => [String(index + 1), row.description, `${row.quantityMilli / 1000n}${row.quantityMilli % 1000n ? ',' + String(row.quantityMilli % 1000n).padStart(3, '0').replace(/0+$/, '') : ''}`, row.unit, money(row.price), money(row.total)]), [0, 2, 4, 5]);
+      const table = tableWrap.querySelector('table');
+      table.classList.add('invoice-items-table');
+      if (invoice.rows.length <= 5) {
+        const spacer = document.createElement('tr');
+        spacer.className = 'invoice-table-spacer';
+        spacer.setAttribute('aria-hidden', 'true');
+        for (let i = 0; i < 6; i++) spacer.append(document.createElement('td'));
+        table.querySelector('tbody').append(spacer);
+      }
+      preview.append(tableWrap);
+      const taxLabel = taxMode === 'effective11' ? 'PPN 12% × DPP (efektif 11%)' : taxMode === 'full12' ? 'PPN 12% × harga setelah diskon' : 'PPN (tidak ditambahkan)';
+      const taxRows = [];
+      if (taxMode !== 'none') {
+        const dppCents = AccountingMath.fractionCents(invoice.dppNumerator, invoice.dppDenominator);
+        const dppText = `Rp ${new Intl.NumberFormat('id-ID').format(dppCents / 100n)},${String(dppCents % 100n).padStart(2, '0')}`;
+        taxRows.push([taxMode === 'effective11' ? 'DPP nilai lain (11/12)' : 'DPP harga setelah diskon', dppText]);
+      }
+      taxRows.push([taxLabel, money(invoice.vat)]);
+      const settlement = document.createElement('div');
+      settlement.className = 'invoice-settlement';
+      const terbilang = document.createElement('section');
+      terbilang.className = 'invoice-terbilang';
+      terbilang.append(textElement('p', 'Terbilang (sisa tagihan)', 'invoice-small-label'), textElement('p', AccountingMath.rupiahWords(invoice.balance)));
+      settlement.append(terbilang, reportSummary([
+        ['Subtotal', money(invoice.subtotal)],
+        [`Diskon${percentMode ? ` (${discountField.value.trim()}%)` : ''}`, money(invoice.discount)],
+        ['Nilai setelah diskon', money(invoice.net)],
+        ...taxRows,
+        ['Total tagihan', money(invoice.total), true],
+        ['Sudah dibayar', money(paid)], ['Sisa tagihan', money(invoice.balance), true]
+      ]));
+      preview.append(settlement);
+      const notes = document.getElementById('invoice-notes').value.trim();
+      if (notes) preview.append(textElement('p', `CATATAN / INSTRUKSI PEMBAYARAN\n${notes}`, 'report-notes'));
+      const closing = document.createElement('div');
+      closing.className = 'invoice-closing';
+      const company = document.createElement('div');
+      company.append(textElement('p', seller, 'invoice-client-name'));
+      if (sellerDetails) company.append(textElement('p', sellerDetails, 'invoice-multiline'));
+      const signature = document.createElement('div');
+      signature.className = 'invoice-signature';
+      signature.append(textElement('p', 'Dengan hormat,'), textElement('p', signatory || 'Nama / tanda tangan', 'invoice-signature-name'));
+      if (signatoryRole) signature.append(textElement('p', signatoryRole));
+      closing.append(company, signature);
+      preview.append(closing);
+      preview.append(textElement('p', `CONTOH DEMO · Bukan faktur pajak. ${taxLabel}. Skema pajak dipilih pengguna, bukan verifikasi kewajiban pajak. Nominal dibulatkan ke rupiah terdekat (0,5 ke atas); DPP ditampilkan 2 desimal, tanpa pembulatan antara untuk menghitung PPN. Status pembayaran bukan verifikasi bank.`, 'report-footer'));
+      preview.hidden = false;
+      document.getElementById('print-invoice').disabled = false;
+    });
+    const today = new Date();
+    const localToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    document.getElementById('invoice-asof').defaultValue = localToday;
+    function printAccountingReport(kind) {
+      const form = document.getElementById(`${kind}-form`);
+      form.requestSubmit();
+      if (document.getElementById(`${kind}-preview`).hidden) return;
+      const panel = document.getElementById(`panel-${kind}`);
+      panel.classList.add('print-panel');
+      document.body.classList.add('accounting-print-mode');
+      try {
+        window.print();
+      } finally {
+        panel.classList.remove('print-panel');
+        document.body.classList.remove('accounting-print-mode');
+      }
+    }
+    document.getElementById('print-invoice').addEventListener('click', () => printAccountingReport('invoice'));
+    document.getElementById('print-ledger').addEventListener('click', () => printAccountingReport('ledger'));
+
+    document.getElementById('export-ledger').addEventListener('click', () => {
+      if (!ledgerExportRows) return;
+      const csv = '\uFEFF' + ledgerExportRows.map(row => row.map(value => AccountingMath.csvCell(value)).join(',')).join('\r\n');
+      const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'buku-kas-demo.csv';
+      document.body.append(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+
+    function clearActiveTool() {
+      const tab = toolTabs.find(item => item.getAttribute('aria-selected') === 'true');
+      const panel = document.getElementById(tab.getAttribute('aria-controls'));
+      const form = panel.querySelector('form');
+      form.reset();
+      const kind = panel.id.replace('panel-', '');
+      if (kind === 'journal' || kind === 'profit') {
+        const journal = kind === 'journal';
+        document.getElementById(journal ? 'journal-rows' : 'expense-rows').replaceChildren();
+        addToolRow(journal ? 'journal' : 'expense', 'debit', false);
+        if (journal) addToolRow('journal', 'credit', false);
+      }
+      if (kind === 'ledger' || kind === 'invoice') {
+        document.getElementById(`${kind}-rows`).replaceChildren();
+        addRecordRow(kind, false);
+      }
+      invalidateTool(form);
+      form.querySelector('[role="status"]').textContent = 'Tab dikosongkan. Isi data sendiri atau pilih Muat Contoh Demo.';
+      return { form, kind };
+    }
+    document.getElementById('clear-tool-demo').addEventListener('click', clearActiveTool);
+    document.getElementById('load-tool-demo').addEventListener('click', () => {
+      const { form, kind } = clearActiveTool();
+      const fill = (id, value) => { document.getElementById(id).value = value; };
+      const field = (row, selector, value) => { row.querySelector(selector).value = value; };
+      if (kind === 'balance') {
+        fill('cash-balance', '5000000'); fill('bank-balance', '4950000');
+      } else if (kind === 'journal') {
+        const values = [['debit', '1000000'], ['debit', '100000'], ['credit', '600000'], ['credit', '500000']];
+        values.forEach(([side, amount], index) => {
+          if (index >= document.getElementById('journal-rows').children.length) addToolRow('journal', side, false);
+          const row = document.getElementById('journal-rows').children[index];
+          field(row, '[data-side]', side); field(row, '[data-amount]', amount);
+        });
+      } else if (kind === 'profit') {
+        fill('revenue-amount', '6500000');
+        [['Sewa (demo)', '1800000'], ['Operasional (demo)', '900000'], ['Penyusutan (demo)', '650000']].forEach(([name, amount], index) => {
+          if (index) addToolRow('expense', 'debit', false);
+          const row = document.getElementById('expense-rows').children[index];
+          row.querySelector('input:not([data-amount])').value = name;
+          field(row, '[data-amount]', amount);
+        });
+      } else if (kind === 'asset') {
+        fill('asset-cost', '12000000'); fill('asset-residual', '2000000'); fill('asset-years', '5');
+      } else if (kind === 'ledger') {
+        fill('ledger-opening', '1000000'); fill('ledger-from', '2026-11-03'); fill('ledger-to', '2026-11-30');
+        const rows = [
+          ['2026-11-01', 'Setoran modal (demo)', 'in', 'Modal', '500000'],
+          ['2026-11-03', 'Penerimaan jasa (demo)', 'in', 'Penjualan', '350000'],
+          ['2026-11-04', 'Biaya internet (demo)', 'out', 'Operasional', '75000'],
+          ['2026-11-10', 'Peralatan (demo)', 'out', 'Aset', '200000']
+        ];
+        rows.forEach(([date, description, side, category, amount], index) => {
+          if (index) addRecordRow('ledger', false);
+          const row = document.getElementById('ledger-rows').children[index];
+          [['[data-date]', date], ['[data-description]', description], ['[data-side]', side], ['[data-category]', category], ['[data-amount]', amount]].forEach(([selector, value]) => field(row, selector, value));
+        });
+      } else if (kind === 'invoice') {
+        Object.entries({
+          'invoice-seller': 'Usaha Contoh (DEMO)', 'invoice-client': 'Klien Contoh (DEMO)',
+          'invoice-number': 'DEMO-001', 'invoice-date': '2026-11-01', 'invoice-due': '2026-11-30',
+          'invoice-discount': '25000', 'invoice-paid': '200000', 'invoice-asof': '2026-12-03',
+          'invoice-notes': 'Contoh instruksi pembayaran untuk demo. Tidak ada rekening bank sungguhan pada dokumen ini.',
+          'invoice-seller-details': 'Alamat penerbit contoh (DEMO)\nKontak penerbit contoh (DEMO)',
+          'invoice-client-details': 'Alamat klien contoh (DEMO)',
+          'invoice-po': 'PO-DEMO-001', 'invoice-po-date': '2026-10-30',
+          'invoice-payment-method': 'Transfer (simulasi)', 'invoice-signatory': 'Penanggung Jawab Demo',
+          'invoice-signatory-role': 'Finance (DEMO)'
+        }).forEach(([id, value]) => fill(id, value));
+        [['Konsultasi accounting (demo)', '2,5', '150000'], ['Penyusunan laporan (demo)', '1', '250000']].forEach(([description, quantity, price], index) => {
+          if (index) addRecordRow('invoice', false);
+          const row = document.getElementById('invoice-rows').children[index];
+          field(row, '[data-description]', description); field(row, '[data-quantity]', quantity); field(row, '[data-amount]', price);
+          field(row, '[data-unit]', index ? 'paket' : 'jam');
+        });
+      }
+      form.requestSubmit();
+      form.querySelector('.tool-editor').scrollTop = 0;
+      form.querySelector('.tool-output').scrollTop = 0;
+    });
+
+    // 7. CV Modal Dialog Functions (Refined Transition)
+    const cvModal = document.getElementById('cv-modal');
+    const cvModalContent = document.getElementById('cv-modal-content');
+
+    function openCvModal() {
+      cvModal.classList.remove('opacity-0', 'pointer-events-none');
+      cvModal.classList.add('opacity-100', 'pointer-events-auto');
+      setTimeout(() => {
+        cvModalContent.classList.remove('scale-95', 'opacity-0');
+        cvModalContent.classList.add('scale-100', 'opacity-100');
+      }, 20);
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCvModal() {
+      cvModalContent.classList.remove('scale-100', 'opacity-100');
+      cvModalContent.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        cvModal.classList.add('opacity-0', 'pointer-events-none');
+        cvModal.classList.remove('opacity-100', 'pointer-events-auto');
+        document.body.style.overflow = '';
+      }, 200);
+    }
+
+    cvModal.addEventListener('click', (e) => {
+      if (e.target === cvModal) closeCvModal();
+    });
+
+    // 8. Copy Email with Toast Feedback
+    function copyEmail() {
+      navigator.clipboard.writeText('nur.saidahh19@gmail.com').then(() => {
+        showToast("Email nur.saidahh19@gmail.com berhasil disalin! 📋✨");
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.innerText = message;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+      toast.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+        toast.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
