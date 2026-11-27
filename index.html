@@ -504,6 +504,14 @@
         radial-gradient(ellipse 60% 60% at 68% 45%, rgba(251, 212, 214, 0.95) 0%, rgba(254, 234, 236, 0.55) 42%, rgba(254, 234, 236, 0) 72%),
         linear-gradient(180deg, #FEEAEC 0%, #FFF7F7 52%, #FFFFFF 100%);
     }
+    @media screen and (min-width: 1024px) {
+      #home {
+        min-height: calc(100svh - 5rem);
+        display: grid;
+        align-content: center;
+      }
+      #home > .max-w-7xl { width: 100%; }
+    }
     @media screen and (min-width: 768px) {
       #home .max-w-7xl > div:last-child { position: relative; top: -20px; left: -16px; }
     }
